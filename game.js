@@ -1,10 +1,31 @@
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(800, 800);
 }
-function bread(x, y) {
-  scale(1);
+
+let x = 80;
+let y = 80;
+let pixelSize = 4;
+let s = 1;
+let plazaSize = 12;
+let grassX = 1;
+let grassY = 1;
+let pathX = 75;
+let pathY = 75;
+let grassSize = 20;
+
+let pigeon = {
+  x: 670,
+  y: 630,
+  Speed: 5,
+};
+
+let gameTimer = 0;
+
+function bread(x, y, s) {
+  push();
+  scale(s);
   noStroke();
-  background("#ffc8dd");
+
   fill("#45301f");
   //Outline
   rect(x, y, 10, 30);
@@ -158,11 +179,12 @@ function bread(x, y) {
   rect(x + 200, y - 30, 20, 10);
   rect(x + 210, y - 40, 20, 10);
   rect(x + 220, y - 50, 20, 10);
+  pop();
 }
-function tree(x, y) {
-  scale(1.5);
+function tree(x, y, s) {
+  push();
+  scale(s);
   noStroke();
-  background("#ffc8dd");
   //outline
   fill("#565d60");
   rect(x, y, 10, 20);
@@ -392,8 +414,392 @@ function tree(x, y) {
   rect(x + 110, y + 130, 20, 10);
   rect(x + 160, y + 130, 20, 10);
   rect(x + 180, y + 120, 10, 10);
+  pop();
 }
 
-function draw() {
-  background(255, 140, 0);
+function Pigeon(x, y, s) {
+  translate(10, 10);
+  scale(s);
+  // body color
+  push();
+  fill(130, 130, 130);
+  noStroke();
+  rect(x, y - 40, pixelSize + 19, pixelSize + 130);
+  rect(x - 6, y - 39, pixelSize + 10, pixelSize + 30);
+  rect(x + 22, y - 36, pixelSize + 3, pixelSize + 136);
+  rect(x + 28, y - 28, pixelSize, pixelSize + 130);
+  rect(x - 6, y + 2, pixelSize + 72, pixelSize + 90);
+  rect(x + 52, y + 11, pixelSize, pixelSize);
+  rect(x - 14, y + 2, pixelSize, pixelSize + 72);
+  rect(x - 12, y + 7, pixelSize + 4, pixelSize + 72);
+  rect(x - 21, y + 11, pixelSize + 5, pixelSize + 62);
+  rect(x - 29, y + 29, pixelSize + 20, pixelSize + 20);
+  rect(x - 25, y + 24, pixelSize + 2, pixelSize + 40);
+  rect(x + 30, y - 23, pixelSize + 9, pixelSize + 25);
+  rect(x + 40, y - 20, pixelSize + 1, pixelSize + 20);
+  rect(x + 45, y - 6, pixelSize + 10, pixelSize + 10);
+  rect(x - 10, y + 83, pixelSize + 120, pixelSize + 1);
+  rect(x + 11, y + 75, pixelSize + 90, pixelSize + 20);
+  rect(x + 18, y + 95, pixelSize + 68, pixelSize + 6);
+  rect(x + 34, y + 100, pixelSize + 40, pixelSize + 4);
+  rect(x + 103, y + 78, pixelSize + 10, pixelSize + 12);
+  rect(x + 68, y + 70, pixelSize + 8, pixelSize + 10);
+  rect(x + 48, y - 16, pixelSize, pixelSize + 10);
+  rect(x + 44, y - 16, pixelSize + 1, pixelSize + 8);
+  rect(x + 56, y - 2, pixelSize + 4, pixelSize);
+
+  pop();
+
+  // wing
+
+  push();
+  noStroke();
+  fill(215, 210, 210);
+  rect(x + 45, y + 25, pixelSize + 56, pixelSize + 30);
+  rect(x + 63, y + 3, pixelSize + 5, pixelSize + 63);
+  rect(x + 60, y + 5, pixelSize + 2, pixelSize + 57);
+  rect(x + 56, y + 11, pixelSize + 20, pixelSize + 48);
+  rect(x + 90, y + 59, pixelSize + 30, pixelSize + 15);
+  rect(x + 53, y + 11, pixelSize + 2, pixelSize + 30);
+  rect(x + 48, y + 20, pixelSize + 1, pixelSize + 1);
+  rect(x + 69, y + 7, pixelSize + 7, pixelSize);
+  rect(x + 79, y + 13, pixelSize + 6, pixelSize + 55);
+  rect(x + 88, y + 18, pixelSize + 8, pixelSize + 50);
+  rect(x + 41, y + 33, pixelSize + 2, pixelSize + 15);
+  rect(x + 53, y + 59, pixelSize + 2, pixelSize);
+  rect(x + 58, y + 63, pixelSize + 2, pixelSize);
+  rect(x + 70, y + 63, pixelSize + 6, pixelSize + 2);
+  rect(x + 103, y + 32, pixelSize + 2, pixelSize + 25);
+  rect(x + 108, y + 42, pixelSize + 2, pixelSize + 30);
+  rect(x + 113, y + 42, pixelSize + 2, pixelSize + 30);
+  rect(x + 124, y + 67, pixelSize + 2, pixelSize + 6);
+  rect(x + 125, y + 73, pixelSize + 4, pixelSize + 1);
+  pop();
+
+  // tail + mouth + wing strips
+  push();
+  noStroke();
+  fill(60, 60, 60);
+  // tail
+  rect(x + 116, y + 82, pixelSize + 22, pixelSize + 10);
+  rect(x + 141, y + 87, pixelSize + 2, pixelSize + 7);
+  rect(x + 146, y + 90, pixelSize + 4, pixelSize + 2);
+  rect(x + 152, y + 94, pixelSize + 6, pixelSize);
+  rect(x + 111, y + 84, pixelSize + 2, pixelSize);
+  rect(x + 111, y + 89, pixelSize + 2, pixelSize);
+
+  // mouth
+  rect(x - 11, y - 8, pixelSize + 2, pixelSize + 6);
+
+  // strips
+  rect(x + 110, y + 42, pixelSize + 2, pixelSize + 5);
+  rect(x + 107, y + 47, pixelSize + 2, pixelSize + 2);
+  rect(x + 102, y + 50, pixelSize + 2, pixelSize + 2);
+  rect(x + 98, y + 54, pixelSize + 2, pixelSize + 2);
+  rect(x + 94, y + 58, pixelSize + 2, pixelSize + 2);
+  rect(x + 90, y + 62, pixelSize + 2, pixelSize + 2);
+  rect(x + 86, y + 66, pixelSize + 2, pixelSize + 2);
+
+  rect(x + 120, y + 58, pixelSize + 2, pixelSize + 5);
+  rect(x + 117, y + 64, pixelSize + 2, pixelSize + 2);
+  rect(x + 112, y + 67, pixelSize + 2, pixelSize + 2);
+  rect(x + 107, y + 71, pixelSize + 2, pixelSize + 2);
+
+  pop();
+
+  // face
+  push();
+  noStroke();
+  fill(200, 0, 0);
+  rect(x + 8, y - 23, pixelSize, pixelSize + 4);
+  pop();
+
+  // legs
+  push();
+
+  noStroke();
+  fill(210, 0, 30);
+  rect(x + 67, y + 112, pixelSize + 2, pixelSize + 15);
+  rect(x + 63, y + 130, pixelSize + 10, pixelSize + 2);
+  rect(x + 50, y + 112, pixelSize + 2, pixelSize + 15);
+  rect(x + 45, y + 130, pixelSize + 10, pixelSize + 2);
+
+  pop();
+
+  // outline
+  // back
+  stroke(58, 48, 28);
+  fill(58, 48, 28);
+  rect(x, y - 40, pixelSize + 21, pixelSize);
+  rect(x + 25, y - 36, pixelSize, pixelSize);
+  rect(x + 28, y - 32, pixelSize, pixelSize);
+  rect(x + 32, y - 27, pixelSize, pixelSize);
+  rect(x + 37, y - 24, pixelSize + 2, pixelSize);
+  rect(x + 44, y - 20, pixelSize, pixelSize);
+  rect(x + 48, y - 15, pixelSize, pixelSize);
+  rect(x + 52, y - 10, pixelSize + 2, pixelSize);
+  rect(x + 58, y - 6, pixelSize + 2, pixelSize);
+  rect(x + 64, y - 1, pixelSize + 4, pixelSize);
+  rect(x + 72, y + 4, pixelSize + 4, pixelSize);
+  rect(x + 80, y + 9, pixelSize + 4, pixelSize);
+  rect(x + 88, y + 14, pixelSize + 4, pixelSize);
+  rect(x + 96, y + 19, pixelSize, pixelSize);
+  rect(x + 100, y + 24, pixelSize, pixelSize);
+  rect(x + 104, y + 29, pixelSize, pixelSize);
+  rect(x + 109, y + 33, pixelSize, pixelSize + 5);
+  rect(x + 114, y + 42, pixelSize, pixelSize + 5);
+  rect(x + 119, y + 50, pixelSize, pixelSize + 5);
+  rect(x + 124, y + 58, pixelSize, pixelSize + 5);
+  rect(x + 128, y + 68, pixelSize, pixelSize);
+  rect(x + 132, y + 73, pixelSize, pixelSize);
+  rect(x + 136, y + 78, pixelSize + 2, pixelSize);
+  rect(x + 142, y + 83, pixelSize, pixelSize);
+  rect(x + 147, y + 87, pixelSize + 2, pixelSize);
+  rect(x + 154, y + 90, pixelSize + 4, pixelSize);
+  rect(x + 161, y + 94, pixelSize, pixelSize);
+  rect(x + 60, y + 2, pixelSize, pixelSize);
+  rect(x + 56, y + 6, pixelSize, pixelSize);
+  rect(x + 52, y + 11, pixelSize, pixelSize);
+  rect(x + 48, y + 16, pixelSize, pixelSize);
+  rect(x + 44, y + 20, pixelSize, pixelSize);
+  rect(x + 40, y + 24, pixelSize, pixelSize + 4);
+  rect(x + 112, y + 78, pixelSize + 20, pixelSize);
+  rect(x + 90, y + 75, pixelSize + 20, pixelSize);
+  rect(x + 80, y + 71, pixelSize + 6, pixelSize);
+  rect(x + 73, y + 68, pixelSize + 2, pixelSize);
+
+  // front
+  rect(x - 5, y - 38, pixelSize, pixelSize);
+  rect(x - 10, y - 35, pixelSize, pixelSize + 19);
+  rect(x - 15, y - 13, pixelSize, pixelSize + 11);
+  rect(x - 10, y + 2, pixelSize, pixelSize + 1);
+  rect(x - 5, y - 2, pixelSize, pixelSize);
+  rect(x - 18, y + 3, pixelSize, pixelSize + 4);
+  rect(x - 22, y + 11, pixelSize, pixelSize);
+  rect(x - 25, y + 16, pixelSize, pixelSize + 4);
+  rect(x - 29, y + 25, pixelSize, pixelSize);
+  rect(x - 33, y + 30, pixelSize, pixelSize + 11);
+  rect(x - 28, y + 45, pixelSize, pixelSize + 8);
+  rect(x - 24, y + 58, pixelSize, pixelSize + 5);
+  rect(x - 20, y + 68, pixelSize, pixelSize + 4);
+  rect(x - 15, y + 76, pixelSize, pixelSize);
+  rect(x - 11, y + 80, pixelSize, pixelSize + 3);
+  rect(x - 7, y + 88, pixelSize, pixelSize + 3);
+  rect(x - 3, y + 94, pixelSize + 12, pixelSize);
+  rect(x + 12, y + 99, pixelSize + 2, pixelSize);
+  rect(x + 18, y + 104, pixelSize + 12, pixelSize);
+  rect(x + 34, y + 108, pixelSize + 40, pixelSize);
+  rect(x + 77, y + 103, pixelSize + 10, pixelSize);
+  rect(x + 90, y + 98, pixelSize + 10, pixelSize);
+  rect(x + 102, y + 93, pixelSize + 10, pixelSize);
+  rect(x + 116, y + 96, pixelSize + 40, pixelSize);
 }
+
+function Poop(x, y, s) {
+  push();
+  translate(10, 10);
+  scale(s);
+  push();
+  push();
+  // color
+  fill(89, 74, 50);
+  noStroke();
+  rect(x + 28, y, pixelSize, pixelSize + 35);
+  rect(x + 23, y + 6, pixelSize + 9, pixelSize + 30);
+  rect(x + 35, y + 10, pixelSize, pixelSize + 2);
+  rect(x + 18, y + 10, pixelSize + 13, pixelSize + 20);
+  rect(x + 14, y + 16, pixelSize + 27, pixelSize + 2);
+  rect(x + 10, y + 20, pixelSize + 35, pixelSize + 15);
+  rect(x + 6, y + 25, pixelSize + 43, pixelSize + 10);
+  rect(x + 5, y + 26, pixelSize, pixelSize + 10);
+
+  pop();
+
+  // outline
+  push();
+  fill(0, 0, 0);
+  rect(x + 28, y, pixelSize, pixelSize + 2);
+  rect(x + 23, y + 6, pixelSize, pixelSize);
+  rect(x + 33, y + 6, pixelSize, pixelSize);
+  rect(x + 18, y + 10, pixelSize, pixelSize);
+  rect(x + 37, y + 10, pixelSize, pixelSize);
+  rect(x + 14, y + 15, pixelSize, pixelSize);
+  rect(x + 41, y + 15, pixelSize, pixelSize);
+  rect(x + 10, y + 19, pixelSize, pixelSize);
+  rect(x + 45, y + 19, pixelSize, pixelSize);
+  rect(x + 6, y + 24, pixelSize, pixelSize);
+  rect(x + 49, y + 24, pixelSize, pixelSize);
+  rect(x + 2, y + 27, pixelSize - 1, pixelSize + 8);
+  rect(x + 53, y + 27, pixelSize - 1, pixelSize + 8);
+  rect(x + 2, y + 39, pixelSize + 50, pixelSize - 1);
+
+  // oitline lines
+  rect(x + 13, y + 22, pixelSize + 10, pixelSize - 2);
+  rect(x + 28, y + 14, pixelSize + 10, pixelSize - 2);
+  rect(x + 28, y + 32, pixelSize + 13, pixelSize - 2);
+
+  pop();
+  pop();
+}
+
+function gameBase() {
+  background(117, 157, 93);
+  translate(0, 0);
+  push();
+  translate(400, 400);
+  noStroke();
+  fill(207, 203, 126);
+  ellipse(0, 0, 400);
+  pop();
+
+  push();
+  translate(400, 400);
+  noStroke();
+  fill(117, 157, 93);
+  ellipse(0, 0, 364 - size * 10);
+  pop();
+
+  //Horizontal Yellow line/pathway
+  push();
+  translate(0, 400);
+  noStroke();
+  fill(207, 203, 126);
+  rect(0, -pathY / 2, 800, pathY);
+  pop();
+
+  //Vertical Yellow Line/pathway
+  push();
+  translate(400, 0);
+  noStroke();
+  fill(207, 203, 126);
+  rect(-pathX / 2, 0, pathX, 800);
+  pop();
+
+  //Middle square
+  push();
+  translate(400, 400);
+  noStroke();
+  fill(207, 203, 126);
+  rect(
+    (-x * plazaSize) / 2,
+    (-2 * plazaSize) / 2,
+    x * plazaSize,
+    2 * plazaSize,
+    size * 4
+  );
+  pop();
+
+  // tree();
+  // bread(200, 200, 0.7);
+  // Pigeon(100, 100, 1.2);
+  // Poop(200, 300, 0.7);
+}
+
+function gameScreen() {
+  // gameBase();
+
+  background(255, 255, 255);
+  push();
+  fill(200, 180, 90);
+  noStroke();
+  ellipse(400, 400, 350);
+  rect(0, 350, 800, 100);
+  rect(350, 0, 100, 800);
+
+  // middle
+  fill(70, 255, 255);
+  ellipse(400, 400, 150);
+  pop();
+
+  // store
+  push();
+  fill(0, 0, 0);
+  rect(700, 30, 50, 50);
+  pop();
+
+  // enemie
+  push();
+  fill(255, 0, 0);
+  noStroke();
+  rect(260, 380, 40, 40);
+  pop();
+
+  // piegon
+  push();
+  fill(0, 30, 230);
+  rect(pigeon.x, pigeon.y, 50, 50);
+  pop();
+
+  if (keyIsDown(65)) {
+    // A key
+    pigeon.x -= pigeon.Speed;
+  }
+  if (keyIsDown(68)) {
+    // D key
+    pigeon.x += pigeon.Speed;
+  }
+  if (keyIsDown(87)) {
+    // W key
+    pigeon.y -= pigeon.Speed;
+  }
+  if (keyIsDown(83)) {
+    // S key
+    pigeon.y += pigeon.Speed;
+  }
+}
+
+function startScreen() {
+  push();
+  background(0, 0, 255);
+  pop();
+}
+
+function endScreen() {
+  push();
+  background(0, 255, 0);
+  pop();
+}
+
+let state = "game";
+function draw() {
+  gameScreen();
+
+  // if (state === "start") {
+  //   startScreen();
+  // } else if (state === "game") {
+  //   gameScreen();
+  // //   // gameTimer = gameTimer + 1;
+  // //   // if(gameTimer >= 200) {
+  // //   //   gameTimer = 0;
+  // //   // state = "result";
+  // //   // }
+  // } else if (state === "result") {
+  //   endScreen();
+  // }
+}
+
+// function keyPressed(){
+//   if (key === 'a' || key === 'A') {
+//     pigeonX -= piegonSpeed; // Move left
+//   } else if (key === 'd' || key === 'D') {
+//     pigeonX += piegonSpeed; // Move right
+//   } else if (key === 'w' || key === 'W') {
+//     pigeonY -= piegonSpeed ;// Move up
+//   } else if (key === 's' || key === 'S') {
+//     pigeonY += piegonSpeed; // Move down
+//   }
+
+// }
+
+// function mouseClicked() {
+//   if (state === "start") {
+//     console.log("Start clicked");
+//     state = "game";
+//   } else if (state === "game") {
+//     state = "result";
+
+//   } else if (state === "result") {
+//     console.log("again cliked");
+//     state = "game";
+//   }
+// }
