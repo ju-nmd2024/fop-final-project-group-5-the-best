@@ -1,5 +1,6 @@
 function setup() {
   createCanvas(800, 800);
+  noLoop();
 }
 
 let x = 80;
@@ -12,12 +13,20 @@ let grassY = 1;
 let pathX = 75;
 let pathY = 75;
 let grassSize = 20;
+let ts = 20;
 
+// pigeon
 let pigeon = {
   x: 670,
   y: 630,
   Speed: 5,
+  size: 0.4,
 };
+
+let scaleFactor = 0;
+
+//grass texture loop
+let spacing = 80;
 
 let gameTimer = 0;
 
@@ -417,9 +426,58 @@ function tree(x, y, s) {
   pop();
 }
 
-function Pigeon(x, y, s) {
+function Poop(x, y, s) {
+  push();
   translate(10, 10);
   scale(s);
+  push();
+  push();
+  // color
+  fill(89, 74, 50);
+  noStroke();
+  rect(x + 28, y, pixelSize, pixelSize + 35);
+  rect(x + 23, y + 6, pixelSize + 9, pixelSize + 30);
+  rect(x + 35, y + 10, pixelSize, pixelSize + 2);
+  rect(x + 18, y + 10, pixelSize + 13, pixelSize + 20);
+  rect(x + 14, y + 16, pixelSize + 27, pixelSize + 2);
+  rect(x + 10, y + 20, pixelSize + 35, pixelSize + 15);
+  rect(x + 6, y + 25, pixelSize + 43, pixelSize + 10);
+  rect(x + 5, y + 26, pixelSize, pixelSize + 10);
+
+  pop();
+
+  // outline
+  push();
+  fill(0, 0, 0);
+  rect(x + 28, y, pixelSize, pixelSize + 2);
+  rect(x + 23, y + 6, pixelSize, pixelSize);
+  rect(x + 33, y + 6, pixelSize, pixelSize);
+  rect(x + 18, y + 10, pixelSize, pixelSize);
+  rect(x + 37, y + 10, pixelSize, pixelSize);
+  rect(x + 14, y + 15, pixelSize, pixelSize);
+  rect(x + 41, y + 15, pixelSize, pixelSize);
+  rect(x + 10, y + 19, pixelSize, pixelSize);
+  rect(x + 45, y + 19, pixelSize, pixelSize);
+  rect(x + 6, y + 24, pixelSize, pixelSize);
+  rect(x + 49, y + 24, pixelSize, pixelSize);
+  rect(x + 2, y + 27, pixelSize - 1, pixelSize + 8);
+  rect(x + 53, y + 27, pixelSize - 1, pixelSize + 8);
+  rect(x + 2, y + 39, pixelSize + 50, pixelSize - 1);
+
+  // oitline lines
+  rect(x + 13, y + 22, pixelSize + 10, pixelSize - 2);
+  rect(x + 28, y + 14, pixelSize + 10, pixelSize - 2);
+  rect(x + 28, y + 32, pixelSize + 13, pixelSize - 2);
+
+  pop();
+  pop();
+}
+
+function Pigeon(x, y, s) {
+  push();
+
+  scale(s);
+  // scale(s);
   // body color
   push();
   fill(130, 130, 130);
@@ -593,115 +651,20 @@ function Pigeon(x, y, s) {
   rect(x + 90, y + 98, pixelSize + 10, pixelSize);
   rect(x + 102, y + 93, pixelSize + 10, pixelSize);
   rect(x + 116, y + 96, pixelSize + 40, pixelSize);
-}
-
-function Poop(x, y, s) {
-  push();
-  translate(10, 10);
-  scale(s);
-  push();
-  push();
-  // color
-  fill(89, 74, 50);
-  noStroke();
-  rect(x + 28, y, pixelSize, pixelSize + 35);
-  rect(x + 23, y + 6, pixelSize + 9, pixelSize + 30);
-  rect(x + 35, y + 10, pixelSize, pixelSize + 2);
-  rect(x + 18, y + 10, pixelSize + 13, pixelSize + 20);
-  rect(x + 14, y + 16, pixelSize + 27, pixelSize + 2);
-  rect(x + 10, y + 20, pixelSize + 35, pixelSize + 15);
-  rect(x + 6, y + 25, pixelSize + 43, pixelSize + 10);
-  rect(x + 5, y + 26, pixelSize, pixelSize + 10);
-
   pop();
-
-  // outline
-  push();
-  fill(0, 0, 0);
-  rect(x + 28, y, pixelSize, pixelSize + 2);
-  rect(x + 23, y + 6, pixelSize, pixelSize);
-  rect(x + 33, y + 6, pixelSize, pixelSize);
-  rect(x + 18, y + 10, pixelSize, pixelSize);
-  rect(x + 37, y + 10, pixelSize, pixelSize);
-  rect(x + 14, y + 15, pixelSize, pixelSize);
-  rect(x + 41, y + 15, pixelSize, pixelSize);
-  rect(x + 10, y + 19, pixelSize, pixelSize);
-  rect(x + 45, y + 19, pixelSize, pixelSize);
-  rect(x + 6, y + 24, pixelSize, pixelSize);
-  rect(x + 49, y + 24, pixelSize, pixelSize);
-  rect(x + 2, y + 27, pixelSize - 1, pixelSize + 8);
-  rect(x + 53, y + 27, pixelSize - 1, pixelSize + 8);
-  rect(x + 2, y + 39, pixelSize + 50, pixelSize - 1);
-
-  // oitline lines
-  rect(x + 13, y + 22, pixelSize + 10, pixelSize - 2);
-  rect(x + 28, y + 14, pixelSize + 10, pixelSize - 2);
-  rect(x + 28, y + 32, pixelSize + 13, pixelSize - 2);
-
-  pop();
-  pop();
-}
-
-function gameBase() {
-  background(117, 157, 93);
-  translate(0, 0);
-  push();
-  translate(400, 400);
-  noStroke();
-  fill(207, 203, 126);
-  ellipse(0, 0, 400);
-  pop();
-
-  push();
-  translate(400, 400);
-  noStroke();
-  fill(117, 157, 93);
-  ellipse(0, 0, 364 - size * 10);
-  pop();
-
-  //Horizontal Yellow line/pathway
-  push();
-  translate(0, 400);
-  noStroke();
-  fill(207, 203, 126);
-  rect(0, -pathY / 2, 800, pathY);
-  pop();
-
-  //Vertical Yellow Line/pathway
-  push();
-  translate(400, 0);
-  noStroke();
-  fill(207, 203, 126);
-  rect(-pathX / 2, 0, pathX, 800);
-  pop();
-
-  //Middle square
-  push();
-  translate(400, 400);
-  noStroke();
-  fill(207, 203, 126);
-  rect(
-    (-x * plazaSize) / 2,
-    (-2 * plazaSize) / 2,
-    x * plazaSize,
-    2 * plazaSize,
-    size * 4
-  );
-  pop();
-
-  // tree();
-  // bread(200, 200, 0.7);
-  // Pigeon(100, 100, 1.2);
-  // Poop(200, 300, 0.7);
 }
 
 function gameScreen() {
-  // gameBase();
+  background(117, 157, 93);
 
-  background(255, 255, 255);
   push();
-  fill(200, 180, 90);
+
+  pop();
+
+  push();
+  fill(207, 203, 126);
   noStroke();
+
   ellipse(400, 400, 350);
   rect(0, 350, 800, 100);
   rect(350, 0, 100, 800);
@@ -714,20 +677,20 @@ function gameScreen() {
   // store
   push();
   fill(0, 0, 0);
-  rect(700, 30, 50, 50);
+  rect(700, 70, 50, 50);
   pop();
 
-  // enemie
+  // enemy
   push();
   fill(255, 0, 0);
   noStroke();
   rect(260, 380, 40, 40);
   pop();
 
-  // piegon
+  // pigeon
   push();
-  fill(0, 30, 230);
-  rect(pigeon.x, pigeon.y, 50, 50);
+
+  Pigeon(pigeon.x, pigeon.y, pigeon.size);
   pop();
 
   if (keyIsDown(65)) {
@@ -746,6 +709,19 @@ function gameScreen() {
     // S key
     pigeon.y += pigeon.Speed;
   }
+  // count
+  push();
+  fill(255, 255, 255);
+  noStroke();
+  rect(0, 0, 200, 50);
+
+  // timer
+  rect(700, 0, 110, 50);
+  fill(0, 0, 0);
+  textFont("monospace");
+  textSize(ts + 10);
+  text("3:00", 720, 35);
+  pop();
 }
 
 function startScreen() {
@@ -777,19 +753,6 @@ function draw() {
   //   endScreen();
   // }
 }
-
-// function keyPressed(){
-//   if (key === 'a' || key === 'A') {
-//     pigeonX -= piegonSpeed; // Move left
-//   } else if (key === 'd' || key === 'D') {
-//     pigeonX += piegonSpeed; // Move right
-//   } else if (key === 'w' || key === 'W') {
-//     pigeonY -= piegonSpeed ;// Move up
-//   } else if (key === 's' || key === 'S') {
-//     pigeonY += piegonSpeed; // Move down
-//   }
-
-// }
 
 // function mouseClicked() {
 //   if (state === "start") {
