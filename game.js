@@ -1,8 +1,10 @@
 import Character from "./pigeon.js";
+import Fountain from "./fountain.js";
 
 function setup() {
   createCanvas(800, 800);
   character = new Character(100, 100);
+  fountain = new Fountain(150, 300);
   noLoop();
 }
 window.setup = setup;
@@ -17,21 +19,12 @@ function gameScreen() {
   background(117, 157, 93);
 
   push();
-
-  pop();
-
-  push();
   fill(207, 203, 126);
   noStroke();
 
   ellipse(400, 400, 350);
   rect(0, 350, 800, 100);
   rect(350, 0, 100, 800);
-
-  // middle
-  fill(70, 255, 255);
-  ellipse(400, 400, 150);
-  pop();
 
   // store
   push();
@@ -45,16 +38,14 @@ function gameScreen() {
   noStroke();
   rect(260, 380, 40, 40);
   pop();
-
-  // pigeon
-  // push();
-
-  // Pigeon(pigeon.x, pigeon.y, pigeon.size);
-  // pop();
-
+  push();
   character.draw();
+  pop();
+  push();
+  fountain.draw();
+  pop();
 
-  // if (keyIsDown(65)) {
+  //if (keyIsDown(65)) {
   //   // A key
   //   pigeon.x -= pigeon.Speed;
   // }
@@ -70,19 +61,6 @@ function gameScreen() {
   //   // S key
   //   pigeon.y += pigeon.Speed;
   // }
-  // count
-  push();
-  fill(255, 255, 255);
-  noStroke();
-  rect(0, 0, 200, 50);
-
-  // timer
-  rect(700, 0, 110, 50);
-  fill(0, 0, 0);
-  textFont("monospace");
-  textSize(ts + 10);
-  text("3:00", 720, 35);
-  pop();
 }
 
 // let ts = 20;
