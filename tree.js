@@ -1,7 +1,3 @@
-function setup() {
-  createCanvas(800, 800);
-}
-
 export default class Tree {
   construction(x, y, scaleFactor = 0.5) {
     this.x = x;
@@ -11,9 +7,8 @@ export default class Tree {
   draw() {
     translate(this.x, this.y);
     scale(this.scaleFactor);
-    push();
-
     noStroke();
+    push();
     //outline
     fill("#565d60");
     rect(this.x, y, 10, 20);
