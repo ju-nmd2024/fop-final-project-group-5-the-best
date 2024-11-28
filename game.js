@@ -1,10 +1,12 @@
 import Character from "./pigeon.js";
 import Fountain from "./fountain.js";
+import Tree from "./tree.js";
 
 function setup() {
   createCanvas(800, 800);
   character = new Character(100, 100);
   fountain = new Fountain(150, 300);
+  tree = new Tree(180, 200);
   noLoop();
 }
 window.setup = setup;
@@ -43,6 +45,10 @@ function gameScreen() {
   pop();
   push();
   fountain.draw();
+  pop();
+
+  push();
+  tree.draw();
   pop();
 
   //if (keyIsDown(65)) {
