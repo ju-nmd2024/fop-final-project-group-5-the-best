@@ -13,6 +13,9 @@ let bread;
 let character;
 let state = "game";
 
+//game screen:
+// let gameTimer = 0;
+
 // enemy variables
 let enemyAngle = 0; //radians angle
 let enemySpeed = 0.02;
@@ -85,15 +88,15 @@ function gameScreen() {
   rect(enemyX - 5, enemyY - 5, 40, 40);
   pop();
 
-  enemy2X = enemy2X - enemy2Speed;
-  if (enemy2X > 800 || enemy2X < 50) {
-    // animation so it moves
-    enemy2Speed = enemy2Speed * 1;
-  }
   push();
   fill(255, 0, 0);
   noStroke();
   rect(enemy2X - 30, enemy2Y - 20, 40, 40);
+  enemy2X = enemy2X - enemy2Speed;
+  if (enemy2X <= 150 || enemy2X >= 450) {
+    // animation so it moves
+    enemy2Speed = enemy2Speed * 1;
+  }
   pop();
 
   bread.draw();
@@ -138,7 +141,13 @@ function draw() {
     startScreen();
   } else if (state === "game") {
     gameScreen();
+    //     // gameTimer = gameTimer + 1;
+    //     // if(gameTimer >= 200) {
+    //     //   gameTimer = 0;
+    //     state = "result";
+    //     }
   } else if (state === "result") {
+    console.log("time end");
     endScreen();
   }
 }
@@ -149,30 +158,16 @@ function keyPressed() {
   if (keyIsDown(32) && state === "start") {
     console.log("Pressed");
     state = "game";
-  } else if (key === 32 && state === "result") state = "game";
+  } else if (key === 32 && state === "game") state = "game";
+  console.log("game time");
 }
+
+// else if (key === 32 && state === "game" )
+//   state = "time over";
+
 window.keyPressed = keyPressed;
 
 // let gameTimer = 0;
-
-// let state = "game";
-// function draw() {
-//   gameScreen();
-//   character.draw();
-
-// if (state === "start") {
-//   startScreen();
-// } else if (state === "game") {
-//   gameScreen();
-// //   // gameTimer = gameTimer + 1;
-// //   // if(gameTimer >= 200) {
-// //   //   gameTimer = 0;
-// //   // state = "result";
-// //   // }
-// } else if (state === "result") {
-//   endScreen();
-// }
-// }
 
 // function mouseClicked() {
 //   if (state === "start") {
