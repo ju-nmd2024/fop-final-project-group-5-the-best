@@ -1,4 +1,10 @@
-export default class Character {
+function setup() {
+  createCanvas(1000, 1000);
+  background(255, 255, 255);
+  character = new Character(600, 100);
+}
+
+class Character {
   constructor(x, y, scaleFactor) {
     this.x = x;
     this.y = y;
@@ -7,10 +13,13 @@ export default class Character {
   }
 
   draw() {
+    // Define the width of the canvas (adjust if needed)
+    let canvasWidth = 800; // change this to your canvas width if necessary
+
     // body color
     push();
-    translate(0, 0);
-    scale(this.scaleFactor);
+    translate(canvasWidth, 0); // Move everything to the mirrored side
+    scale(-1, 1); // Flip horizontally
     push();
     fill(130, 130, 130);
     noStroke();
@@ -242,4 +251,7 @@ function draw() {
   //   // S key
   //   pigeon.y += pigeon.Speed;
   // }
+}
+function draw() {
+  character.draw();
 }
