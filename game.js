@@ -15,11 +15,11 @@ let character;
 
 function setup() {
   createCanvas(800, 800);
-  character = new Character(460, 470, 0.9);
-  fountain = new Fountain(228, 260, 0.4);
+  character = new Character(160, 470, 0.9);
+  fountain = new Fountain(0, 0, 0.4);
   tree = new Tree(180, 200, 0.5);
-  bread = new Bread(100, 300, 0.4);
-  // loop();
+  bread = new Bread(200, 300, 0.6);
+  loop();
 }
 
 function startScreen() {
@@ -67,15 +67,19 @@ function gameScreen() {
   noStroke();
   rect(260, 380, 40, 40);
   pop();
-
+  push();
+  translate(328, 370);
   fountain.draw();
+  pop();
 
   push();
   character.draw();
-  character.move();
-  pop();
 
+  pop();
+  push();
   bread.draw();
+  tree.draw();
+  pop();
 }
 
 function endScreen() {
