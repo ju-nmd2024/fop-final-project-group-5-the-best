@@ -3,21 +3,42 @@ import Fountain from "./fountain.js";
 import Tree from "./tree.js";
 import Bread from "./bread.js";
 
+//start screen
+let q = 80;
+let z = 100;
+let speed = 2;
+
 function setup() {
   createCanvas(800, 800);
-  character = new Character(100, 100);
-  fountain = new Fountain(150, 300);
+  character = new Character(470, 470);
+  fountain = new Fountain(228, 260);
   tree = new Tree(180, 200);
-  bread = new Bread(280, 200);
-  noLoop();
-}
-window.setup = setup;
-
-function draw() {
-  gameScreen();
+  bread = new Bread(280, 300);
+  loop();
 }
 
-window.draw = draw;
+function startScreen() {
+  push();
+
+  translate(170, 200);
+  background(255, 255, 255);
+  push();
+  textFont("monospace");
+  textSize(50);
+  fill(0, 0, 0);
+  text("Pigeon Lambada", q, z);
+  q = q + speed;
+  if (q > 100 || q < 50) {
+    speed = speed * -1; // Reverse speed
+  }
+  pop();
+
+  fill(255, 90, 90);
+  textSize(20);
+  text("< press space to start > ", 200, 300);
+
+  pop();
+}
 
 function gameScreen() {
   background(117, 157, 93);
@@ -42,149 +63,105 @@ function gameScreen() {
   noStroke();
   rect(260, 380, 40, 40);
   pop();
-  push();
-  character.draw();
-  pop();
+
   push();
   fountain.draw();
   pop();
 
-  tree.draw();
-
-  bread.draw();
-
-  //if (keyIsDown(65)) {
-  //   // A key
-  //   pigeon.x -= pigeon.Speed;
-  // }
-  // if (keyIsDown(68)) {
-  //   // D key
-  //   pigeon.x += pigeon.Speed;
-  // }
-  // if (keyIsDown(87)) {
-  //   // W key
-  //   pigeon.y -= pigeon.Speed;
-  // }
-  // if (keyIsDown(83)) {
-  //   // S key
-  //   pigeon.y += pigeon.Speed;
-  // }
+  push();
+  character.draw();
+  character.move();
+  pop();
 }
 
-// let ts = 20;
+function endScreen() {
+  push();
+
+  translate(170, 200);
+  background(255, 255, 255);
+  push();
+  textFont("monospace");
+  textSize(50);
+  fill(0, 0, 0);
+  text("You pooped!", q, z);
+  q = q + speed;
+  if (q > 100 || q < 60) {
+    speed = speed * -1; // Reverse speed
+  }
+  pop();
+
+  fill(255, 90, 90);
+  textSize(20);
+  text("< press space to play again > ", 120, 300);
+
+  pop();
+}
+
+window.setup = setup;
+
+let state = "game";
+let character;
+
+function draw() {
+  // gameScreen();
+
+  gameScreen();
+  if (state === "start") {
+    startScreen();
+  } else if (state === "game") {
+    gameScreenn();
+  } else if (state === "result") {
+    endScreen();
+  }
+}
+
+window.draw = draw;
+
+window.keyPressed = keyPressed;
+function keyPressed() {
+  console.log("Pressed");
+  if (key === 32 && state === "start") {
+    state = "game";
+  } else if (key === 32 && state === "result") state = "game";
+}
+window.keyPressed = keyPressed;
 
 // let gameTimer = 0;
 
-// // // function gameScreen() {
-// // //   background(117, 157, 93);
+// function endScreen() {
+//   push();
+//   background(0, 255, 0);
+//   pop();
+// }
 
-// // //   push();
+// let state = "game";
+// function draw() {
+//   gameScreen();
+//   character.draw();
 
-// // //   pop();
-
-// // //   push();
-// // //   fill(207, 203, 126);
-// // //   noStroke();
-
-// // //   ellipse(400, 400, 350);
-// // //   rect(0, 350, 800, 100);
-// // //   rect(350, 0, 100, 800);
-
-// // //   // middle
-// // //   fill(70, 255, 255);
-// // //   ellipse(400, 400, 150);
-// // //   pop();
-
-// // //   // store
-// // //   push();
-// // //   fill(0, 0, 0);
-// // //   rect(700, 70, 50, 50);
-// // //   pop();
-
-// // //   // enemy
-// // //   push();
-// // //   fill(255, 0, 0);
-// // //   noStroke();
-// // //   rect(260, 380, 40, 40);
-// // //   pop();
-
-// // //   // pigeon
-// // //   // push();
-
-// // //   // Pigeon(pigeon.x, pigeon.y, pigeon.size);
-// // //   // pop();
-
-// // //   if (keyIsDown(65)) {
-// // //     // A key
-// // //     pigeon.x -= pigeon.Speed;
-// // //   }
-// // //   if (keyIsDown(68)) {
-// // //     // D key
-// // //     pigeon.x += pigeon.Speed;
-// // //   }
-// // //   if (keyIsDown(87)) {
-// // //     // W key
-// // //     pigeon.y -= pigeon.Speed;
-// // //   }
-// // //   if (keyIsDown(83)) {
-// // //     // S key
-// // //     pigeon.y += pigeon.Speed;
-// // //   }
-// // //   // count
-// // //   push();
-// // //   fill(255, 255, 255);
-// // //   noStroke();
-// // //   rect(0, 0, 200, 50);
-
-// // //   // timer
-// // //   rect(700, 0, 110, 50);
-// // //   fill(0, 0, 0);
-// // //   textFont("monospace");
-// // //   textSize(ts + 10);
-// // //   text("3:00", 720, 35);
-// // //   pop();
-// // // }
-
-// // // function startScreen() {
-// // //   push();
-// // //   background(0, 0, 255);
-// // //   pop();
-// // // }
-
-// // // function endScreen() {
-// // //   push();
-// // //   background(0, 255, 0);
-// // //   pop();
-// // // }
-
-// // // let state = "game";
-// // // function draw() {
-// // //   gameScreen();
-// // //   character.draw();
-
-// //   // if (state === "start") {
-// //   //   startScreen();
-// //   // } else if (state === "game") {
-// //   //   gameScreen();
-// //   // //   // gameTimer = gameTimer + 1;
-// //   // //   // if(gameTimer >= 200) {
-// //   // //   //   gameTimer = 0;
-// //   // //   // state = "result";
-// //   // //   // }
-// //   // } else if (state === "result") {
-// //   //   endScreen();
+// if (state === "start") {
+//   startScreen();
+// } else if (state === "game") {
+//   gameScreen();
+// //   // gameTimer = gameTimer + 1;
+// //   // if(gameTimer >= 200) {
+// //   //   gameTimer = 0;
+// //   // state = "result";
 // //   // }
-// // // }
+// } else if (state === "result") {
+//   endScreen();
+// }
+// }
 
-// // // function mouseClicked() {
-// // //   if (state === "start") {
-// // //     console.log("Start clicked");
-// // //     state = "game";
-// // //   } else if (state === "game") {
-// // //     state = "result";
+// function mouseClicked() {
+//   if (state === "start") {
+//     console.log("Start clicked");
+//     state = "game";
+//   } else if (state === "game") {
+//     state = "result";
 
-// // //   } else if (state === "result") {
-// // //     console.log("again cliked");
-// // //     state = "game";
-// // //   }
-// // // }
+//   } else if (state === "result") {
+//     console.log("again cliked");
+//     state = "game";
+//   }
+// }

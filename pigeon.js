@@ -3,6 +3,7 @@ export default class Character {
     this.x = x;
     this.y = y;
     this.scaleFactor = scaleFactor;
+    this.speed = 5;
   }
 
   draw() {
@@ -180,6 +181,25 @@ export default class Character {
     rect(this.x + 102, this.y + 93, 14, 4);
     rect(this.x + 116, this.y + 96, 44, 4);
     pop();
+  }
+
+  move() {
+    if (keyIsDown(65)) {
+      // A key
+      this.x -= this.Speed;
+    }
+    if (keyIsDown(68)) {
+      // D key
+      this.x += this.Speed;
+    }
+    if (keyIsDown(87)) {
+      // W key
+      this.y -= this.Speed;
+    }
+    if (keyIsDown(83)) {
+      // S key
+      this.y += this.Speed;
+    }
   }
 
   setScale(newScale) {
