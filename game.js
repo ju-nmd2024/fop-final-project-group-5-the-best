@@ -10,15 +10,27 @@ let speed = 2;
 let fountain;
 let tree;
 let bread;
-let state = "start";
 let character;
+let state = "game";
+
+// enemy variables
+let enemyAngle = 0; //radians angle
+let enemySpeed = 0.02;
+let fountainX = 400;
+let fountainY = 390;
+let fountainRadius = 140;
+
+// sencond enemy
+let enemy2X = 800;
+let enemy2Y = 400;
+let enemy2Speed = 2;
 
 function setup() {
   createCanvas(800, 800);
-  character = new Character(160, 470, 0.9);
-  fountain = new Fountain(0, 0, 0.4);
-  tree = new Tree(180, 200, 0.5);
-  bread = new Bread(200, 300, 0.6);
+  character = new Character(160, 470, 0.4);
+  fountain = new Fountain(228, 260, 0.4);
+  tree = new Tree(-600, -600, 0.9);
+  bread = new Bread(-200, 200, 0.6);
   loop();
 }
 
@@ -62,22 +74,36 @@ function gameScreen() {
   pop();
 
   // enemy
+
+  let enemyX = fountainX + fountainRadius * cos(enemyAngle);
+  let enemyY = fountainY + fountainRadius * sin(enemyAngle);
+  enemyAngle += enemySpeed;
+
   push();
   fill(255, 0, 0);
   noStroke();
-  rect(260, 380, 40, 40);
-  pop();
-  push();
-  translate(328, 370);
-  fountain.draw();
+  rect(enemyX - 5, enemyY - 5, 40, 40);
   pop();
 
+  enemy2X = enemy2X - enemy2Speed;
+  if (enemy2X > 800 || enemy2X < 50) {
+    // animation so it moves
+    enemy2Speed = enemy2Speed * 1;
+  }
   push();
-  character.draw();
-
+  fill(255, 0, 0);
+  noStroke();
+  rect(enemy2X - 30, enemy2Y - 20, 40, 40);
   pop();
-  push();
+
   bread.draw();
+
+  character.draw();
+  character.move();
+
+  fountain.draw();
+
+  push();
   tree.draw();
   pop();
 }
@@ -108,15 +134,13 @@ function endScreen() {
 window.setup = setup;
 
 function draw() {
-  gameScreen();
-
-  // if (state === "start") {
-  //   startScreen();
-  // } else if (state === "game") {
-  //   gameScreenn();
-  // } else if (state === "result") {
-  //   endScreen();
-  // }
+  if (state === "start") {
+    startScreen();
+  } else if (state === "game") {
+    gameScreen();
+  } else if (state === "result") {
+    endScreen();
+  }
 }
 
 window.draw = draw;
@@ -130,12 +154,6 @@ function keyPressed() {
 window.keyPressed = keyPressed;
 
 // let gameTimer = 0;
-
-// function endScreen() {
-//   push();
-//   background(0, 255, 0);
-//   pop();
-// }
 
 // let state = "game";
 // function draw() {

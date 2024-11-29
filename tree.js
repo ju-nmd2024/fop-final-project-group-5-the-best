@@ -5,7 +5,7 @@ export default class Tree {
     this.scaleFactor = scaleFactor;
   }
   draw() {
-    translate(this.x, this.y);
+    translate(0, 0);
     scale(this.scaleFactor);
     noStroke();
     push();

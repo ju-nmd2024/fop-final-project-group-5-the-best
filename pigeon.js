@@ -3,13 +3,13 @@ export default class Character {
     this.x = x;
     this.y = y;
     this.scaleFactor = scaleFactor;
-    this.speed = 5;
+    this.speed = 10;
   }
 
   draw() {
     // body color
     push();
-    translate(this.x, this.y);
+    translate(0, 0);
     scale(this.scaleFactor);
     push();
     fill(130, 130, 130);
@@ -18,7 +18,7 @@ export default class Character {
     rect(this.x - 6, this.y - 39, 14, 34);
     rect(this.x + 22, this.y - 36, 7, 140);
     rect(this.x + 28, this.y - 28, 4, 134);
-    rect(this.x - 6, this.y + 2, 76, 94);
+    rect(this.x - 6, this.y - +2, 76, 94);
     rect(this.x + 52, this.y + 11, 4, 4);
     rect(this.x - 14, this.y + 2, 4, 76);
     rect(this.x - 12, this.y + 7, 8, 76);
@@ -75,6 +75,7 @@ export default class Character {
     rect(this.x + 152, this.y + 94, 10, 4);
     rect(this.x + 111, this.y + 84, 6, 4);
     rect(this.x + 111, this.y + 89, 6, 4);
+    pop();
 
     // mouth
     rect(this.x - 11, this.y - 8, 6, 10);
