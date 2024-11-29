@@ -1,5 +1,5 @@
 export default class Character {
-  constructor(x, y, scaleFactor = 0.4) {
+  constructor(x, y, scaleFactor) {
     this.x = x;
     this.y = y;
     this.scaleFactor = scaleFactor;
@@ -17,7 +17,7 @@ export default class Character {
     rect(this.x, this.y - 40, 23, 134);
     rect(this.x - 6, this.y - 39, 14, 34);
     rect(this.x + 22, this.y - 36, 7, 140);
-    rect(this.x + 28, this.y - 28, 4, +134);
+    rect(this.x + 28, this.y - 28, 4, 134);
     rect(this.x - 6, this.y + 2, 76, 94);
     rect(this.x + 52, this.y + 11, 4, 4);
     rect(this.x - 14, this.y + 2, 4, 76);
@@ -186,19 +186,23 @@ export default class Character {
   move() {
     if (keyIsDown(65)) {
       // A key
-      this.x -= this.Speed;
+      this.x -= this.speed;
+      console.log("A pressed");
     }
     if (keyIsDown(68)) {
       // D key
-      this.x += this.Speed;
+      this.x += this.speed;
+      console.log("D pressed");
     }
     if (keyIsDown(87)) {
       // W key
-      this.y -= this.Speed;
+      this.y -= this.speed;
+      console.log("W pressed");
     }
     if (keyIsDown(83)) {
       // S key
-      this.y += this.Speed;
+      this.y += this.speed;
+      console.log("S pressed");
     }
   }
 
@@ -209,20 +213,20 @@ export default class Character {
 
 function draw() {
   character.draw();
-  if (keyIsDown(65)) {
-    // A key
-    pigeon.x -= pigeon.Speed;
-  }
-  if (keyIsDown(68)) {
-    // D key
-    pigeon.x += pigeon.Speed;
-  }
-  if (keyIsDown(87)) {
-    // W key
-    pigeon.y -= pigeon.Speed;
-  }
-  if (keyIsDown(83)) {
-    // S key
-    pigeon.y += pigeon.Speed;
-  }
+  // if (keyIsDown(65)) {
+  //   // A key
+  //   pigeon.x -= pigeon.Speed;
+  // }
+  // if (keyIsDown(68)) {
+  //   // D key
+  //   pigeon.x += pigeon.Speed;
+  // }
+  // if (keyIsDown(87)) {
+  //   // W key
+  //   pigeon.y -= pigeon.Speed;
+  // }
+  // if (keyIsDown(83)) {
+  //   // S key
+  //   pigeon.y += pigeon.Speed;
+  // }
 }

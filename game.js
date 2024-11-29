@@ -7,14 +7,19 @@ import Bread from "./bread.js";
 let q = 80;
 let z = 100;
 let speed = 2;
+let fountain;
+let tree;
+let bread;
+let state = "start";
+let character;
 
 function setup() {
   createCanvas(800, 800);
-  character = new Character(470, 470);
-  fountain = new Fountain(228, 260);
-  tree = new Tree(180, 200);
-  bread = new Bread(280, 300);
-  loop();
+  character = new Character(460, 470, 0.9);
+  fountain = new Fountain(228, 260, 0.4);
+  tree = new Tree(180, 200, 0.5);
+  bread = new Bread(100, 300, 0.4);
+  // loop();
 }
 
 function startScreen() {
@@ -41,9 +46,8 @@ function startScreen() {
 }
 
 function gameScreen() {
-  background(117, 157, 93);
-
   push();
+  background(117, 157, 93);
   fill(207, 203, 126);
   noStroke();
 
@@ -64,14 +68,14 @@ function gameScreen() {
   rect(260, 380, 40, 40);
   pop();
 
-  push();
   fountain.draw();
-  pop();
 
   push();
   character.draw();
   character.move();
   pop();
+
+  bread.draw();
 }
 
 function endScreen() {
@@ -99,28 +103,23 @@ function endScreen() {
 
 window.setup = setup;
 
-let state = "game";
-let character;
-
 function draw() {
-  // gameScreen();
-
   gameScreen();
-  if (state === "start") {
-    startScreen();
-  } else if (state === "game") {
-    gameScreenn();
-  } else if (state === "result") {
-    endScreen();
-  }
+
+  // if (state === "start") {
+  //   startScreen();
+  // } else if (state === "game") {
+  //   gameScreenn();
+  // } else if (state === "result") {
+  //   endScreen();
+  // }
 }
 
 window.draw = draw;
 
-window.keyPressed = keyPressed;
 function keyPressed() {
-  console.log("Pressed");
-  if (key === 32 && state === "start") {
+  if (keyIsDown(32) && state === "start") {
+    console.log("Pressed");
     state = "game";
   } else if (key === 32 && state === "result") state = "game";
 }

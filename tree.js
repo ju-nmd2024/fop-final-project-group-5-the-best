@@ -1,5 +1,5 @@
 export default class Tree {
-  construction(x, y, scaleFactor = 0.5) {
+  construction(x, y, scaleFactor) {
     this.x = x;
     this.y = y;
     this.scaleFactor = scaleFactor;
