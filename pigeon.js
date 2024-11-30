@@ -1,3 +1,6 @@
+// let storeX = 700;
+// let storeY = 70;
+
 export default class Character {
   constructor(x, y, scaleFactor) {
     this.x = x;
@@ -196,8 +199,8 @@ export default class Character {
     if (keyIsDown(68)) {
       // D key
       this.x += this.speed;
-      if (this.x > 2000 - 32) {
-        this.x = 2000 - 32;
+      if (this.x > 1900 - 32) {
+        this.x = 1900 - 32;
       }
       console.log("D pressed");
     }
@@ -212,12 +215,17 @@ export default class Character {
     if (keyIsDown(83)) {
       // S key
       this.y += this.speed;
-      if (this.y > 2000 - 40) {
-        this.y = 2000 - 40;
+      if (this.y > 1900 - 40) {
+        this.y = 1900 - 40;
       }
       console.log("S pressed");
     }
   }
+
+  // store( storeX, storeY, storeW, storeH){
+  // let distance = dist(this.x, this.y, storeX, storeY);
+  // return distance < 50;
+  // }
 
   setScale(newScale) {
     this.scaleFactor = newScale;

@@ -25,15 +25,27 @@ let fountainRadius = 140;
 
 // sencond enemy
 let enemy2X = 800;
-let enemy2Y = 400;
+let enemy2Y = 390;
 let enemy2Speed = 2;
+
+//3rd enemy
+let enemy3X = 0;
+let enemy3Y = 400;
+let enemy3Speed = 2.5;
+
+// store
+let storePopup = false;
+let storeX = 700;
+let storeY = 70;
+let storeW = 50;
+let storeH = 50;
 
 function setup() {
   createCanvas(800, 800);
-  character = new Character(160, 470, 0.4);
+  character = new Character(1650, 100, 0.4);
   fountain = new Fountain(228, 260, 0.4);
   tree = new Tree(-600, -600, 0.9);
-  bread = new Bread(-200, 200, 0.6);
+  bread = new Bread(-200, -200, 0.55);
   loop();
 }
 
@@ -42,6 +54,7 @@ function startScreen() {
 
   translate(170, 200);
   background(255, 255, 255);
+
   push();
   textFont("monospace");
   textSize(50);
@@ -62,6 +75,7 @@ function startScreen() {
 
 function gameScreen() {
   push();
+
   background(117, 157, 93);
   fill(207, 203, 126);
   noStroke();
@@ -73,8 +87,11 @@ function gameScreen() {
   // store
   push();
   fill(0, 0, 0);
-  rect(700, 70, 50, 50);
+  rect(storeX, storeY, storeW, storeH);
   pop();
+  // if(character.store( storeX, storeY, storeW, storeH)){
+  //   storePopup = true;
+  // }
 
   // enemy
 
@@ -88,27 +105,41 @@ function gameScreen() {
   rect(enemyX - 5, enemyY - 5, 40, 40);
   pop();
 
+  // enemy 2
+
   push();
   fill(255, 0, 0);
   noStroke();
-  rect(enemy2X - 30, enemy2Y - 20, 40, 40);
+  rect(enemy2X - 30, enemy2Y - 10, 40, 40);
   enemy2X = enemy2X - enemy2Speed;
-  if (enemy2X <= 150 || enemy2X >= 450) {
-    // animation so it moves
-    enemy2Speed = enemy2Speed * 1;
+  if (enemy2X <= 520) {
+    enemy2Speed = -enemy2Speed;
+  } else if (enemy2X >= 820) {
+    enemy2Speed = -enemy2Speed;
   }
   pop();
 
-  bread.draw();
+  // enemy 3
+  push();
+  fill(255, 0, 0);
+  noStroke();
+  rect(enemy3X, enemy3Y - 20, 40, 40);
+  enemy3X = enemy3X + enemy3Speed;
+  if (enemy3X >= 280) {
+    enemy3Speed = -enemy3Speed;
+  } else if (enemy3X <= -10) {
+    enemy3Speed = -enemy3Speed;
+  }
+  pop();
 
   character.draw();
   character.move();
 
   fountain.draw();
 
-  push();
   tree.draw();
-  pop();
+
+  bread.draw();
 }
 
 function endScreen() {
@@ -116,6 +147,7 @@ function endScreen() {
 
   translate(170, 200);
   background(255, 255, 255);
+
   push();
   textFont("monospace");
   textSize(50);
