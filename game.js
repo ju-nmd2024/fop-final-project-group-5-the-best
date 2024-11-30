@@ -1,7 +1,8 @@
-import Character from "./pigeon.js";
+// import Character from "./pigeon.js";
 import Fountain from "./fountain.js";
 import Tree from "./tree.js";
 import Bread from "./bread.js";
+import PixelPigeon from "./new_pigeon.js";
 
 //start screen
 let q = 80;
@@ -10,7 +11,8 @@ let speed = 2;
 let fountain;
 let tree;
 let bread;
-let character;
+// let character;
+let pigeon;
 let state = "game";
 
 //game screen:
@@ -42,10 +44,11 @@ let storeH = 50;
 
 function setup() {
   createCanvas(800, 800);
-  character = new Character(1650, 100, 0.4);
+  // character = new Character(1650, 100, 0.4);
   fountain = new Fountain(228, 260, 0.4);
   tree = new Tree(-600, -600, 0.9);
   bread = new Bread(-200, -200, 0.55);
+  pigeon = new PixelPigeon(500, 100, 2);
   loop();
 }
 
@@ -132,8 +135,10 @@ function gameScreen() {
   }
   pop();
 
-  character.draw();
-  character.move();
+  pigeon.draw();
+
+  // character.draw();
+  // character.move();
 
   fountain.draw();
 
