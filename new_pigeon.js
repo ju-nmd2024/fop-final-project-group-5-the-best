@@ -5,6 +5,7 @@ export default class PixelPigeon {
     this.x = x;
     this.y = y;
     this.size = size;
+    this.speed = 10;
     this.data = [
       [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -138,8 +139,6 @@ export default class PixelPigeon {
   }
 
   draw() {
-    background(255, 255, 255);
-
     push();
     translate(this.x, this.y);
     for (let y in this.data) {
@@ -174,5 +173,28 @@ export default class PixelPigeon {
       }
     }
     pop();
+  }
+
+  move() {
+    if (keyIsDown(65)) {
+      // A key
+      this.x -= this.speed;
+      console.log("A pressed");
+    }
+    if (keyIsDown(68)) {
+      // D key
+      this.x += this.speed;
+      console.log("D pressed");
+    }
+    if (keyIsDown(87)) {
+      // W key
+      this.y -= this.speed;
+      console.log("W pressed");
+    }
+    if (keyIsDown(83)) {
+      // S key
+      this.y += this.speed;
+      console.log("S pressed");
+    }
   }
 }

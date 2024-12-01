@@ -8,6 +8,7 @@ import PixelPigeon from "./new_pigeon.js";
 let q = 80;
 let z = 100;
 let speed = 2;
+let lambadaBackground;
 let fountain;
 let tree;
 let bread;
@@ -76,16 +77,15 @@ function startScreen() {
   pop();
 }
 
+function preload() {
+  lambadaBackground = loadImage("Pigeon Lambada.png");
+}
+
 function gameScreen() {
   push();
-
-  background(117, 157, 93);
-  fill(207, 203, 126);
-  noStroke();
-
-  ellipse(400, 400, 350);
-  rect(0, 350, 800, 100);
-  rect(350, 0, 100, 800);
+  push();
+  image(lambadaBackground, 0, 0, 800, 800);
+  pop();
 
   // store
   push();
@@ -136,6 +136,7 @@ function gameScreen() {
   pop();
 
   pigeon.draw();
+  pigeon.move();
 
   // character.draw();
   // character.move();
