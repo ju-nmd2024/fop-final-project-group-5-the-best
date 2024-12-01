@@ -11,8 +11,8 @@ let speed = 2;
 let lambadaBackground;
 let fountain;
 let tree;
-let bread;
-// let character;
+// let bread;
+let breadArray = [];
 let pigeon;
 let state = "game";
 
@@ -43,15 +43,12 @@ let storeY = 70;
 let storeW = 50;
 let storeH = 50;
 
-// random bread
-// let distance = dist(pigeon.x, pigeon.y, bread.x, bread.y);
-
 function setup() {
   createCanvas(800, 800);
   // character = new Character(1650, 100, 0.4);
   fountain = new Fountain(228, 260, 0.4);
   tree = new Tree(-600, -600, 0.9);
-  bread = new Bread(random(width), random(height), 0.55);
+  breadArray.push(new Bread(random(width), random(height), 0.55));
   pigeon = new PixelPigeon(500, 100, 2);
   loop();
 }
@@ -88,6 +85,12 @@ function gameScreen() {
   push();
   push();
   image(lambadaBackground, 0, 0, 800, 800);
+  pop();
+
+  // store
+  push();
+  fill(0, 0, 0);
+  rect(storeX, storeY, storeW, storeH);
   pop();
 
   // enemy
@@ -139,12 +142,16 @@ function gameScreen() {
 
   tree.draw();
 
-  bread.draw();
-
-  // store
   push();
-  fill(0, 0, 0);
-  rect(storeX, storeY, storeW, storeH);
+  for (let i = breadArray.length - 1; i >= 0; i--) {
+    let bread = breadArray[i];
+    if (pigeon.breadCollision(bread)) {
+      console.log("collision detected");
+      breadArray.splice(i, 1);
+    } else {
+      bread.draw();
+    }
+  }
   pop();
 }
 
