@@ -173,6 +173,11 @@ export default class PixelPigeon {
       }
     }
     pop();
+
+    if (this.walkShop()) {
+      showPopup();
+      storePopup = true;
+    }
   }
 
   move() {
@@ -208,8 +213,14 @@ export default class PixelPigeon {
       }
       console.log("S pressed");
     }
+  }
 
-    // this.x = constrain(this.x, 0, width - this.size);
-    // this.y = constrain(this.y, 0, height - this.size);
+  walkShop() {
+    return (
+      this.x < storeX + 50 + storeW &&
+      this.x + this.size * 10 > storeX &&
+      this.y < storeY + 50 + storeH &&
+      this.y + this.size * 10 > storeY
+    );
   }
 }

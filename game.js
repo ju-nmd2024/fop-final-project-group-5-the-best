@@ -43,12 +43,15 @@ let storeY = 70;
 let storeW = 50;
 let storeH = 50;
 
+// random bread
+// let distance = dist(pigeon.x, pigeon.y, bread.x, bread.y);
+
 function setup() {
   createCanvas(800, 800);
   // character = new Character(1650, 100, 0.4);
   fountain = new Fountain(228, 260, 0.4);
   tree = new Tree(-600, -600, 0.9);
-  bread = new Bread(-200, -200, 0.55);
+  bread = new Bread(random(width), random(height), 0.55);
   pigeon = new PixelPigeon(500, 100, 2);
   loop();
 }
@@ -86,15 +89,6 @@ function gameScreen() {
   push();
   image(lambadaBackground, 0, 0, 800, 800);
   pop();
-
-  // store
-  push();
-  fill(0, 0, 0);
-  rect(storeX, storeY, storeW, storeH);
-  pop();
-  // if(character.store( storeX, storeY, storeW, storeH)){
-  //   storePopup = true;
-  // }
 
   // enemy
 
@@ -146,6 +140,12 @@ function gameScreen() {
   tree.draw();
 
   bread.draw();
+
+  // store
+  push();
+  fill(0, 0, 0);
+  rect(storeX, storeY, storeW, storeH);
+  pop();
 }
 
 function endScreen() {
@@ -191,6 +191,20 @@ function draw() {
 }
 
 window.draw = draw;
+
+function showPopup() {
+  background(0, 0, 0, 180);
+  fill(255, 255, 255);
+  rect(350, 200, 200, 300);
+}
+
+// function pigeonBread(){
+//   if(distance < 30){
+//     bread.x = random(width);
+//     bread.y = random(height);
+//   }
+
+// }
 
 function keyPressed() {
   if (keyIsDown(32) && state === "start") {
