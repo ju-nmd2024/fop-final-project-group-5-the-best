@@ -1,5 +1,5 @@
-const size = 10;
-let d = dist(this.x, this.y, bread.x, bread.y);
+// const size = 10;
+// let d = dist(this.x, this.y, bread.x, bread.y);
 
 export default class PixelPigeon {
   constructor(x = 0, y = 0, size = 10) {
@@ -224,9 +224,9 @@ export default class PixelPigeon {
       this.y + this.size * 10 > storeY
     );
   }
-
+  /*
   breadCollision(bread) {
     let d = dist(this.x, this.y, bread.x, bread.y);
     return d < 70;
-  }
+  }*/
 }
