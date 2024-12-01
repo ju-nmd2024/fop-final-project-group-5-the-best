@@ -179,22 +179,37 @@ export default class PixelPigeon {
     if (keyIsDown(65)) {
       // A key
       this.x -= this.speed;
+      if (this.x < 0) {
+        this.x = 0;
+      }
       console.log("A pressed");
     }
     if (keyIsDown(68)) {
       // D key
       this.x += this.speed;
+      if (this.x > 800 - 80) {
+        this.x = 800 - 80;
+      }
       console.log("D pressed");
     }
     if (keyIsDown(87)) {
       // W key
       this.y -= this.speed;
+      if (this.y < 0) {
+        this.y = 0;
+      }
       console.log("W pressed");
     }
     if (keyIsDown(83)) {
       // S key
       this.y += this.speed;
+      if (this.y > 800 - 60) {
+        this.y = 800 - 60;
+      }
       console.log("S pressed");
     }
+
+    // this.x = constrain(this.x, 0, width - this.size);
+    // this.y = constrain(this.y, 0, height - this.size);
   }
 }
