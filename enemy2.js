@@ -79,12 +79,6 @@ export default class Enemy2 {
   }
 
   update() {
-    // this.x = this.speed;
-
-    // if (this.x <= this.leftTurn || this.x >= this.rightTurn) {
-    //   this.speed *= -1;
-    // }
-
     this.x = this.x - this.speed;
     if (this.x <= this.leftTurn) {
       this.speed = -this.speed;

@@ -102,6 +102,48 @@ function gameScreen() {
   rect(storeX, storeY, storeW, storeH);
   pop();
 
+  // // enemy
+
+  // let enemyX = fountainX + fountainRadius * cos(enemyAngle);
+  // let enemyY = fountainY + fountainRadius * sin(enemyAngle);
+  // enemyAngle += enemySpeed;
+
+  // push();
+  // fill(255, 0, 0);
+  // noStroke();
+  // rect(enemyX - 5, enemyY - 5, 40, 40);
+  // pop();
+
+  // enemy 2
+
+  // push();
+  // fill(255, 0, 0);
+  // noStroke();
+  // rect(enemy2X - 30, enemy2Y - 10, 40, 40);
+  // enemy2X = enemy2X - enemy2Speed;
+  // if (enemy2X <= 520) {
+  //   enemy2Speed = -enemy2Speed;
+  // } else if (enemy2X >= 820) {
+  //   enemy2Speed = -enemy2Speed;
+  // }
+  // pop();
+
+  // enemy 3
+  // push();
+  // fill(255, 0, 0);
+  // noStroke();
+  // rect(enemy3X, enemy3Y - 20, 40, 40);
+  // enemy3X = enemy3X + enemy3Speed;
+  // if (enemy3X >= 280) {
+  //   enemy3Speed = -enemy3Speed;
+  // } else if (enemy3X <= -10) {
+  //   enemy3Speed = -enemy3Speed;
+  // }
+  // pop();
+
+  // character.draw();
+  // character.move();
+
   enemy1.update();
   enemy1.draw();
 
@@ -110,8 +152,6 @@ function gameScreen() {
 
   enemy3.update();
   enemy3.draw();
-
-  bread.draw();
 
   pigeon.draw();
   pigeon.move();
@@ -176,7 +216,7 @@ window.draw = draw;
 function showPopup() {
   background(0, 0, 0, 180);
   fill(255, 255, 255);
-  rect(300, 200, 350, 350);
+  rect(350, 200, 200, 300);
 }
 
 // function pigeonBread(){
