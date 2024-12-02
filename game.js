@@ -1,6 +1,5 @@
-// import Character from "./pigeon.js";
-import Fountain from "./fountain.js";
-import Tree from "./tree.js";
+import Fountain from "./new_fountain.js";
+import Tree from "./new_tree.js";
 import Bread from "./bread.js";
 import PixelPigeon from "./new_pigeon.js";
 import Enemy1 from "./enemy1.js";
@@ -14,8 +13,6 @@ let speed = 2;
 let lambadaBackground;
 let fountain;
 let tree;
-let bread;
-let breadArray = [];
 let pigeon;
 let state = "game";
 
@@ -24,23 +21,8 @@ let state = "game";
 
 // enemy variables
 let enemy1;
-let enemyAngle = 0; //radians angle
-let enemySpeed = 0.02;
-let fountainX = 400;
-let fountainY = 390;
-let fountainRadius = 140;
-
-// sencond enemy
 let enemy2;
-let enemy2X = 800;
-let enemy2Y = 390;
-let enemy2Speed = 2;
-
-//3rd enemy
 let enemy3;
-let enemy3X = 0;
-let enemy3Y = 400;
-let enemy3Speed = 2.5;
 
 // store
 let storePopup = false;
@@ -49,17 +31,28 @@ let storeY = 70;
 let storeW = 50;
 let storeH = 50;
 
+//bread grid
+let cols;
+let rows;
+let size = 80;
+let bread;
+
 function setup() {
   createCanvas(800, 800);
   // character = new Character(1650, 100, 0.4);
-  fountain = new Fountain(228, 260, 0.4);
-  tree = new Tree(-600, -600, 0.9);
+  fountain = new Fountain(300, 240, 5);
+  tree = new Tree(50, 50, 3);
   // breadArray.push(new Bread(random(width), random(height), 0.55));
   pigeon = new PixelPigeon(500, 100, 2);
   enemy1 = new Enemy1(400, 100, 3, 0.02);
   enemy2 = new Enemy2(700, 370, 3, 2);
   enemy3 = new Enemy3(0, 370, 3, 2);
-  bread = new Bread(200, 200, 2.5);
+
+  cols = width / size;
+  rows = height / size;
+
+  bread = new Bread(0, 0, size / 35);
+  placeBread();
   loop();
 }
 
@@ -89,6 +82,7 @@ function startScreen() {
 function preload() {
   lambadaBackground = loadImage("Pigeon Lambada.png");
 }
+window.preload = preload;
 
 function colliding(pigeon, enemy1) {
   const pigeonCollision = pigeon.getCollision();
@@ -105,6 +99,7 @@ function colliding(pigeon, enemy1) {
 function gameScreen() {
   push();
   push();
+  displayBoard();
   image(lambadaBackground, 0, 0, 800, 800);
   pop();
 
@@ -114,50 +109,17 @@ function gameScreen() {
   rect(storeX, storeY, storeW, storeH);
   pop();
 
-  // // enemy
+  if (breadCollision()) {
+    placeBread();
+  }
 
-  // let enemyX = fountainX + fountainRadius * cos(enemyAngle);
-  // let enemyY = fountainY + fountainRadius * sin(enemyAngle);
-  // enemyAngle += enemySpeed;
-
-  // push();
-  // fill(255, 0, 0);
-  // noStroke();
-  // rect(enemyX - 5, enemyY - 5, 40, 40);
-  // pop();
-
-  // enemy 2
-
-  // push();
-  // fill(255, 0, 0);
-  // noStroke();
-  // rect(enemy2X - 30, enemy2Y - 10, 40, 40);
-  // enemy2X = enemy2X - enemy2Speed;
-  // if (enemy2X <= 520) {
-  //   enemy2Speed = -enemy2Speed;
-  // } else if (enemy2X >= 820) {
-  //   enemy2Speed = -enemy2Speed;
-  // }
-  // pop();
-
-  // enemy 3
-  // push();
-  // fill(255, 0, 0);
-  // noStroke();
-  // rect(enemy3X, enemy3Y - 20, 40, 40);
-  // enemy3X = enemy3X + enemy3Speed;
-  // if (enemy3X >= 280) {
-  //   enemy3Speed = -enemy3Speed;
-  // } else if (enemy3X <= -10) {
-  //   enemy3Speed = -enemy3Speed;
-  // }
-  // pop();
-
-  // character.draw();
-  // character.move();
+  bread.draw();
 
   enemy1.update();
   enemy1.draw();
+
+  fountain.draw();
+  tree.draw();
 
   enemy2.update();
   enemy2.draw();
@@ -225,6 +187,24 @@ function draw() {
     console.log("time end");
     endScreen();
   }
+}
+function breadCollision() {
+  let d = dist(pigeon.x, pigeon.y, bread.x, bread.y);
+  return d < size / 2;
+}
+function displayBoard() {
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      noStroke();
+      rect(i * size, j * size, size, size);
+    }
+  }
+}
+function placeBread() {
+  let randomX = Math.floor(Math.random() * cols);
+  let randomY = Math.floor(Math.random() * rows);
+  bread.x = randomX * size;
+  bread.y = randomY * size;
 }
 
 window.draw = draw;

@@ -1,12 +1,15 @@
 // const size = 10;
 // let d = dist(this.x, this.y, bread.x, bread.y);
+import Bread from "./bread.js";
 
 export default class PixelPigeon {
   constructor(x = 0, y = 0, size = 10) {
+    let bread;
     this.x = x;
     this.y = y;
     this.size = size;
     this.speed = 10;
+    bread = new Bread(0, 0, size / 35);
     this.data = [
       [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -226,11 +229,10 @@ export default class PixelPigeon {
       this.y + this.size * 10 > storeY
     );
   }
-  /*
-  breadCollision(bread) {
-    let d = dist(this.x, this.y, bread.x, bread.y);
-    return d < 70;
-  }*/
+
+  // breadCollision(bread) {
+
+  // }
 
   getCollision() {
     return {
