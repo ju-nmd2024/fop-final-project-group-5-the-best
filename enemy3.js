@@ -1,8 +1,11 @@
 export default class Enemy3 {
-  constructor(x = 0, y = 0, size = 10) {
+  constructor(x = 0, y = 0, size = 10, speed = 2) {
     this.x = x;
     this.y = y;
     this.size = size;
+    this.speed = speed;
+    this.leftTurn = -10;
+    this.rightTurn = 280;
     this.data = [
       [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
       [0, 0, 0, 1, 3, 3, 3, 3, 2, 1, 2, 3, 3, 1, 0, 0],
@@ -73,5 +76,13 @@ export default class Enemy3 {
       }
     }
     pop();
+  }
+
+  update() {
+    this.x += this.speed;
+
+    if (this.x <= this.leftTurn || this.x >= this.rightTurn) {
+      this.speed *= -1;
+    }
   }
 }

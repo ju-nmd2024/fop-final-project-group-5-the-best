@@ -56,10 +56,10 @@ function setup() {
   tree = new Tree(-600, -600, 0.9);
   // breadArray.push(new Bread(random(width), random(height), 0.55));
   pigeon = new PixelPigeon(500, 100, 2);
-  enemy1 = new Enemy1(400, 100, 10);
-  enemy2 = new Enemy2(700, 100, 10);
-  enemy3 = new Enemy3(800, 100, 10);
-  bread = new Bread(200, 200, 15);
+  enemy1 = new Enemy1(400, 100, 3, 0.02);
+  enemy2 = new Enemy2(700, 370, 3, 2);
+  enemy3 = new Enemy3(0, 370, 3, 2);
+  bread = new Bread(200, 200, 2.5);
   loop();
 }
 
@@ -102,60 +102,19 @@ function gameScreen() {
   rect(storeX, storeY, storeW, storeH);
   pop();
 
-  // enemy
+  enemy1.update();
+  enemy1.draw();
 
-  let enemyX = fountainX + fountainRadius * cos(enemyAngle);
-  let enemyY = fountainY + fountainRadius * sin(enemyAngle);
-  enemyAngle += enemySpeed;
+  enemy2.update();
+  enemy2.draw();
 
-  push();
-  fill(255, 0, 0);
-  noStroke();
-  rect(enemyX - 5, enemyY - 5, 40, 40);
-  pop();
+  enemy3.update();
+  enemy3.draw();
 
-  // enemy 2
-
-  push();
-  fill(255, 0, 0);
-  noStroke();
-  rect(enemy2X - 30, enemy2Y - 10, 40, 40);
-  enemy2X = enemy2X - enemy2Speed;
-  if (enemy2X <= 520) {
-    enemy2Speed = -enemy2Speed;
-  } else if (enemy2X >= 820) {
-    enemy2Speed = -enemy2Speed;
-  }
-  pop();
-
-  // enemy 3
-  push();
-  fill(255, 0, 0);
-  noStroke();
-  rect(enemy3X, enemy3Y - 20, 40, 40);
-  enemy3X = enemy3X + enemy3Speed;
-  if (enemy3X >= 280) {
-    enemy3Speed = -enemy3Speed;
-  } else if (enemy3X <= -10) {
-    enemy3Speed = -enemy3Speed;
-  }
-  pop();
+  bread.draw();
 
   pigeon.draw();
   pigeon.move();
-
-  // character.draw();
-  // character.move();
-
-  fountain.draw();
-
-  tree.draw();
-
-  enemy1.draw();
-
-  enemy2.draw();
-
-  enemy3.draw();
 
   // push();
   // for (let i = breadArray.length - 1; i >= 0; i--) {
@@ -217,7 +176,7 @@ window.draw = draw;
 function showPopup() {
   background(0, 0, 0, 180);
   fill(255, 255, 255);
-  rect(350, 200, 200, 300);
+  rect(300, 200, 350, 350);
 }
 
 // function pigeonBread(){

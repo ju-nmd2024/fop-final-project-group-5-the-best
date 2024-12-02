@@ -1,8 +1,13 @@
 export default class Enemy1 {
-  constructor(x = 0, y = 0, size = 10) {
+  constructor(x = 0, y = 0, size = 10, speed = 0.02) {
     this.x = x;
     this.y = y;
     this.size = size;
+    this.speed = speed;
+    this.angle = 0;
+    this.radius = 140;
+    this.centerX = 400;
+    this.centerY = 390;
     this.data = [
       [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
       [0, 0, 0, 1, 3, 3, 3, 3, 2, 1, 2, 3, 3, 1, 0, 0],
@@ -24,6 +29,12 @@ export default class Enemy1 {
       [0, 0, 0, 0, 1, 10, 9, 9, 9, 9, 9, 9, 9, 9, 1, 0],
       [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     ];
+  }
+
+  update() {
+    this.x = this.centerX + this.radius * cos(this.angle);
+    this.y = this.centerY + this.radius * sin(this.angle);
+    this.angle += this.speed;
   }
 
   draw() {
@@ -74,9 +85,9 @@ export default class Enemy1 {
     }
     pop();
   }
-  move() {
-    this.x = fountainX + fountainRadius * cos(enemyAngle);
-    this.y = fountainY + fountainRadius * sin(enemyAngle);
-    enemyAngle += enemySpeed;
-  }
+  //   move() {
+  //     this.x = fountainX + fountainRadius * cos(enemyAngle);
+  //     this.y = fountainY + fountainRadius * sin(enemyAngle);
+  //     enemyAngle += enemySpeed;
+  //   }
 }
