@@ -1,168 +1,128 @@
 export default class Bread {
-  constructor(x, y, scaleFactor) {
+  constructor(x, y, size = 10) {
     this.x = x;
     this.y = y;
-    this.scaleFactor = scaleFactor;
+    this.size = size;
+    this.data = [
+      [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0,
+        0,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 3, 6, 6, 1, 1, 0, 0,
+        0,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 4, 5, 3, 6, 6, 6, 6, 6, 1, 0,
+        0,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 5, 5, 6, 6, 6, 6, 6, 8, 1,
+        0,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 4, 4, 3, 6, 6, 3, 4, 5, 5, 6, 6, 6, 8, 1,
+        0,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 5, 5, 6, 6, 6, 6, 6, 6, 4, 6, 8, 9, 10,
+        1,
+      ],
+      [
+        0, 0, 0, 0, 1, 1, 4, 3, 6, 6, 6, 6, 4, 5, 5, 6, 6, 6, 6, 6, 8, 9, 11,
+        11, 1,
+      ],
+      [
+        0, 0, 0, 1, 2, 4, 4, 5, 3, 6, 6, 6, 6, 6, 6, 4, 6, 6, 8, 9, 10, 11, 11,
+        10, 1,
+      ],
+      [
+        0, 0, 1, 2, 3, 6, 3, 4, 5, 5, 6, 6, 6, 6, 6, 6, 8, 9, 9, 10, 11, 11, 10,
+        1, 0,
+      ],
+      [
+        0, 1, 2, 2, 3, 6, 6, 6, 6, 6, 5, 6, 6, 6, 6, 8, 9, 9, 10, 11, 11, 10, 1,
+        0, 0,
+      ],
+      [
+        0, 1, 2, 3, 3, 6, 6, 6, 6, 6, 6, 6, 8, 8, 9, 9, 10, 11, 11, 11, 10, 1,
+        0, 0, 0,
+      ],
+      [
+        1, 7, 7, 2, 3, 3, 6, 6, 6, 6, 8, 9, 9, 9, 10, 11, 11, 11, 10, 1, 1, 0,
+        0, 0, 0,
+      ],
+      [
+        1, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 10, 11, 11, 11, 10, 1, 1, 0, 0, 0,
+        0, 0, 0,
+      ],
+      [
+        1, 8, 7, 8, 8, 9, 9, 9, 9, 10, 10, 11, 11, 11, 10, 1, 1, 0, 0, 0, 0, 0,
+        0, 0, 0,
+      ],
+      [
+        0, 1, 8, 9, 9, 9, 9, 9, 10, 11, 11, 11, 10, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0,
+      ],
+      [
+        0, 0, 1, 1, 9, 9, 10, 10, 11, 11, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      [
+        0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+    ];
   }
   draw() {
-    translate(this.x, this.y);
-    scale(this.scaleFactor);
-    noStroke();
-    fill("#45301f");
     push();
-    //Outline
-    rect(this.x, this.y, 10, 30);
-    pop();
-    rect(this.x + 10, this.y + 30, 10, 10);
-    rect(this.x + 20, this.y + 40, 20, 10);
-    rect(this.x + 40, this.y + 50, 60, 10);
-    rect(this.x + 100, this.y + 40, 30, 10);
-    rect(this.x + 130, this.y + 30, 20, 10);
-    rect(this.x + 150, this.y + 20, 20, 10);
-    rect(this.x + 170, this.y + 10, 20, 10);
-    rect(this.x + 190, this.y, 20, 10);
-    rect(this.x + 210, this.y - 10, 10, 10);
-    rect(this.x + 220, this.y - 20, 10, 10);
-    rect(this.x + 230, this.y - 30, 10, 10);
-    rect(this.x + 240, this.y - 60, 10, 30);
-    rect(this.x + 230, this.y - 80, 10, 20);
-    rect(this.x + 220, this.y - 90, 10, 10);
-    rect(this.x + 200, this.y - 100, 20, 10);
-    rect(this.x + 170, this.y - 110, 30, 10);
-    rect(this.x + 140, this.y - 100, 30, 10);
-    rect(this.x + 110, this.y - 90, 30, 10);
-    rect(this.x + 100, this.y - 80, 10, 10);
-    rect(this.x + 70, this.y - 70, 30, 10);
-    rect(this.x + 60, this.y - 60, 10, 10);
-    rect(this.x + 40, this.y - 50, 20, 10);
-    rect(this.x + 30, this.y - 40, 10, 10);
-    rect(this.x + 20, this.y - 30, 10, 10);
-    rect(this.x + 10, this.y - 20, 10, 20);
+    translate(this.x, this.y);
+    for (let y in this.data) {
+      for (let x in this.data[y]) {
+        let pixel = this.data[y][x];
+        if (pixel !== 0) {
+          if (pixel === 1) {
+            noStroke();
+            fill(69, 48, 31);
+          } else if (pixel === 2) {
+            noStroke();
+            fill(136, 67, 12);
+          } else if (pixel === 3) {
+            noStroke();
+            fill(182, 91, 38);
+          } else if (pixel === 4) {
+            noStroke();
+            fill(254, 171, 91);
+          } else if (pixel === 5) {
+            noStroke();
+            fill(253, 193, 109);
+          } else if (pixel === 6) {
+            noStroke();
+            fill(212, 110, 26);
+          } else if (pixel === 7) {
+            noStroke();
+            fill(196, 124, 40);
+          } else if (pixel === 8) {
+            noStroke();
+            fill(217, 134, 54);
+          } else if (pixel === 9) {
+            noStroke();
+            fill(239, 158, 79);
+          } else if (pixel === 10) {
+            noStroke();
+            fill(255, 175, 95);
+          } else if (pixel === 11) {
+            noStroke();
+            fill(253, 192, 112);
+          }
 
-    //base
-    fill("#d46e1a");
-    rect(this.x + 50, this.y - 40, 50, 50);
-    rect(this.x + 80, this.y - 50, 40, 50);
-    rect(this.x + 120, this.y - 70, 30, 60);
-    rect(this.x + 150, this.y - 90, 10, 70);
-    rect(this.x + 140, this.y - 90, 40, 60);
-    rect(this.x + 180, this.y - 100, 20, 60);
-    rect(this.x + 200, this.y - 90, 10, 40);
-    rect(this.x + 210, this.y - 90, 10, 30);
-
-    //darker part inside
-    fill("#88430c"); //7f4f24
-    rect(this.x + 20, this.y - 20, 10, 20);
-    rect(this.x + 30, this.y - 30, 10, 20);
-    rect(this.x + 30, this.y, 10, 10);
-    rect(this.x + 40, this.y - 40, 10, 10);
-    rect(this.x + 70, this.y - 60, 10, 10);
-    rect(this.x + 110, this.y - 80, 10, 10);
-
-    fill("#b65b26"); //936639
-    rect(this.x + 30, this.y - 10, 10, 10);
-    rect(this.x + 40, this.y - 30, 10, 40);
-    rect(this.x + 50, this.y, 10, 10);
-    rect(this.x + 50, this.y - 40, 10, 10);
-    rect(this.x + 60, this.y - 30, 20, 10);
-    rect(this.x + 80, this.y - 60, 30, 10);
-    rect(this.x + 70, this.y - 50, 10, 10);
-    rect(this.x + 80, this.y - 40, 10, 10);
-    rect(this.x + 120, this.y - 80, 20, 10);
-    rect(this.x + 120, this.y - 70, 10, 10);
-    rect(this.x + 120, this.y - 50, 10, 10);
-    rect(this.x + 150, this.y - 70, 20, 10);
-    rect(this.x + 160, this.y - 90, 10, 10);
-    rect(this.x + 170, this.y - 100, 10, 10);
-
-    fill("#bf641d");
-
-    //cuts
-    fill("#fdc16d");
-    rect(this.x + 70, this.y - 40, 10, 10);
-    rect(this.x + 80, this.y - 30, 20, 10);
-    rect(this.x + 100, this.y - 20, 10, 10);
-
-    rect(this.x + 100, this.y - 60, 30, 10);
-    rect(this.x + 130, this.y - 50, 20, 10);
-
-    rect(this.x + 140, this.y - 90, 20, 10);
-    rect(this.x + 140, this.y - 80, 20, 10);
-    rect(this.x + 150, this.y - 80, 20, 10);
-    rect(this.x + 170, this.y - 70, 20, 10);
-
-    //cuts shadows
-    fill("#feab5b");
-    rect(this.x + 60, this.y - 50, 10, 20);
-    rect(this.x + 50, this.y - 40, 10, 10);
-    rect(this.x + 70, this.y - 30, 10, 10);
-
-    rect(this.x + 100, this.y - 70, 20, 10);
-    rect(this.x + 90, this.y - 60, 10, 10);
-    rect(this.x + 120, this.y - 50, 10, 10);
-    rect(this.x + 150, this.y - 40, 10, 10);
-
-    rect(this.x + 130, this.y - 80, 10, 10);
-    rect(this.x + 140, this.y - 90, 10, 10);
-    rect(this.x + 160, this.y - 70, 10, 10);
-    rect(this.x + 190, this.y - 60, 10, 10);
-
-    //lighter part inside
-
-    fill("#ef9e4f");
-    rect(this.x + 40, this.y + 10, 60, 40);
-    rect(this.x + 30, this.y + 30, 10, 10);
-    rect(this.x + 100, this.y + 10, 10, 10);
-    rect(this.x + 110, this.y, 30, 10);
-    rect(this.x + 140, this.y - 10, 20, 10);
-    rect(this.x + 160, this.y - 20, 20, 10);
-    rect(this.x + 170, this.y - 30, 20, 10);
-    rect(this.x + 190, this.y - 40, 10, 10);
-    rect(this.x + 210, this.y - 50, 10, 10);
-    rect(this.x + 220, this.y - 60, 10, 10);
-
-    fill("#d98636");
-    rect(this.x + 10, this.y + 10, 40, 20);
-    rect(this.x + 50, this.y + 10, 20, 10);
-    rect(this.x + 20, this.y + 30, 10, 10);
-    rect(this.x + 100, this.y, 10, 10);
-    rect(this.x + 120, this.y - 10, 20, 10);
-    rect(this.x + 150, this.y - 20, 10, 10);
-    rect(this.x + 160, this.y - 30, 10, 10);
-    rect(this.x + 180, this.y - 40, 10, 10);
-    rect(this.x + 200, this.y - 50, 10, 10);
-    rect(this.x + 210, this.y - 60, 10, 10);
-    rect(this.x + 220, this.y - 80, 10, 20);
-
-    fill("#c47c28");
-    rect(this.x + 10, this.y, 20, 20);
-    rect(this.x + 10, this.y + 10, 30, 10);
-    rect(this.x + 20, this.y + 20, 10, 10);
-
-    fill("#ffaf5f");
-    rect(this.x + 60, this.y + 40, 40, 10);
-    rect(this.x + 80, this.y + 30, 50, 10);
-    rect(this.x + 90, this.y + 20, 60, 10);
-    rect(this.x + 110, this.y + 10, 60, 10);
-    rect(this.x + 140, this.y, 50, 10);
-    rect(this.x + 160, this.y - 10, 50, 10);
-    rect(this.x + 180, this.y - 20, 40, 10);
-    rect(this.x + 190, this.y - 30, 40, 10);
-    rect(this.x + 190, this.y - 30, 40, 10);
-    rect(this.x + 200, this.y - 40, 40, 10);
-    rect(this.x + 230, this.y - 60, 10, 10);
-
-    fill("#fdc070");
-    rect(this.x + 80, this.y + 40, 20, 10);
-    rect(this.x + 90, this.y + 30, 30, 10);
-    rect(this.x + 110, this.y + 20, 30, 10);
-    rect(this.x + 130, this.y + 10, 30, 10);
-    rect(this.x + 150, this.y, 30, 10);
-    rect(this.x + 170, this.y - 10, 30, 10);
-    rect(this.x + 190, this.y - 20, 20, 10);
-    rect(this.x + 200, this.y - 30, 20, 10);
-    rect(this.x + 210, this.y - 40, 20, 10);
-    rect(this.x + 220, this.y - 50, 20, 10);
+          rect(x * this.size, y * this.size, this.size, this.size);
+        }
+      }
+    }
     pop();
   }
+}
+function draw() {
+  bread.draw();
 }
