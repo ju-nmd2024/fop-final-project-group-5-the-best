@@ -27,6 +27,9 @@ export default class Enemy2 {
       [0, 0, 0, 0, 1, 10, 9, 9, 9, 9, 9, 9, 9, 9, 1, 0],
       [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     ];
+
+    this.width = this.data[0].length * this.size;
+    this.height = this.data.length * this.size;
   }
 
   draw() {
@@ -85,5 +88,14 @@ export default class Enemy2 {
     } else if (this.x >= this.rightTurn) {
       this.speed = -this.speed;
     }
+  }
+
+  getCollision() {
+    return {
+      x: this.x - this.width / 2,
+      y: this.y - this.height / 2,
+      width: this.width,
+      height: this.height,
+    };
   }
 }

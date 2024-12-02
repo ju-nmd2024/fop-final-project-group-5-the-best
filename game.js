@@ -90,6 +90,18 @@ function preload() {
   lambadaBackground = loadImage("Pigeon Lambada.png");
 }
 
+function colliding(pigeon, enemy1) {
+  const pigeonCollision = pigeon.getCollision();
+  const enemy1Collision = enemy1.getCollision();
+
+  return (
+    pigeonCollision.x < enemy1Collision.x + enemy1Collision.width &&
+    pigeonCollision.x + pigeonCollision.width > enemy1Collision.x &&
+    pigeonCollision.y < enemy1Collision.y + enemy1Collision.height &&
+    pigeonCollision.y + pigeonCollision.height > enemy1Collision.y
+  );
+}
+
 function gameScreen() {
   push();
   push();
@@ -156,16 +168,8 @@ function gameScreen() {
   pigeon.draw();
   pigeon.move();
 
-  function colliding(pigeon, enemy1) {
-    const pigeonCollision = pigeon.getCollision();
-    const enemy1Collision = enemy1.getCollision();
-
-    return (
-      pigeonCollision.x < enemy1Collision + enemy1Collision.width &&
-      pigeonCollision.x + pigeonCollision.width > enemy1Collision.x &&
-      pigeonCollision.y < enemy1Collision.y + enemy1Collision.height &&
-      pigeonCollision.y + pigeonCollision.height > enemy1Collision.y
-    );
+  if (colliding(pigeon, enemy1)) {
+    console.log("Collision detected");
   }
 
   // push();
