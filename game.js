@@ -104,15 +104,15 @@ function gameScreen() {
 
   // enemy
 
-  // let enemyX = fountainX + fountainRadius * cos(enemyAngle);
-  // let enemyY = fountainY + fountainRadius * sin(enemyAngle);
-  // enemyAngle += enemySpeed;
+  let enemyX = fountainX + fountainRadius * cos(enemyAngle);
+  let enemyY = fountainY + fountainRadius * sin(enemyAngle);
+  enemyAngle += enemySpeed;
 
-  // push();
-  // fill(255, 0, 0);
-  // noStroke();
-  // rect(enemyX - 5, enemyY - 5, 40, 40);
-  // pop();
+  push();
+  fill(255, 0, 0);
+  noStroke();
+  rect(enemyX - 5, enemyY - 5, 40, 40);
+  pop();
 
   // enemy 2
 
