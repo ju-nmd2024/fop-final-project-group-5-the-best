@@ -156,6 +156,18 @@ function gameScreen() {
   pigeon.draw();
   pigeon.move();
 
+  function colliding(pigeon, enemy1) {
+    const pigeonCollision = pigeon.getCollision();
+    const enemy1Collision = enemy1.getCollision();
+
+    return (
+      pigeonCollision.x < enemy1Collision + enemy1Collision.width &&
+      pigeonCollision.x + pigeonCollision.width > enemy1Collision.x &&
+      pigeonCollision.y < enemy1Collision.y + enemy1Collision.height &&
+      pigeonCollision.y + pigeonCollision.height > enemy1Collision.y
+    );
+  }
+
   // push();
   // for (let i = breadArray.length - 1; i >= 0; i--) {
   //   let bread = breadArray[i];
@@ -216,7 +228,7 @@ window.draw = draw;
 function showPopup() {
   background(0, 0, 0, 180);
   fill(255, 255, 255);
-  rect(350, 200, 200, 300);
+  rect(250, 100, 300, 550);
 }
 
 // function pigeonBread(){

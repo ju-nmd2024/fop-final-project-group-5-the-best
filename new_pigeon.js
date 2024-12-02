@@ -137,6 +137,8 @@ export default class PixelPigeon {
         0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       ],
     ];
+    this.width = this.data[0].length * this.size;
+    this.height = this.data.length * this.size;
   }
 
   draw() {
@@ -229,4 +231,13 @@ export default class PixelPigeon {
     let d = dist(this.x, this.y, bread.x, bread.y);
     return d < 70;
   }*/
+
+  getCollision() {
+    return {
+      x: this.x - this.width / 2,
+      y: this.y - this.height / 2,
+      width: this.width,
+      height: this.height,
+    };
+  }
 }
