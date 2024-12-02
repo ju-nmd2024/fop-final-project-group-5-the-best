@@ -56,9 +56,9 @@ function setup() {
   tree = new Tree(-600, -600, 0.9);
   // breadArray.push(new Bread(random(width), random(height), 0.55));
   pigeon = new PixelPigeon(500, 100, 2);
-  // enemy1 = new Enemy1(400, 100, 3, 0.02);
-  // enemy2 = new Enemy2(700, 370, 3, 2);
-  // enemy3 = new Enemy3(0, 370, 3, 2);
+  enemy1 = new Enemy1(400, 100, 3, 0.02);
+  enemy2 = new Enemy2(700, 370, 3, 2);
+  enemy3 = new Enemy3(0, 370, 3, 2);
   bread = new Bread(200, 200, 2.5);
   loop();
 }
@@ -102,14 +102,14 @@ function gameScreen() {
   rect(storeX, storeY, storeW, storeH);
   pop();
 
-  // enemy1.update();
-  // enemy1.draw();
+  enemy1.update();
+  enemy1.draw();
 
-  // enemy2.update();
-  // enemy2.draw();
+  enemy2.update();
+  enemy2.draw();
 
-  // enemy3.update();
-  // enemy3.draw();
+  enemy3.update();
+  enemy3.draw();
 
   bread.draw();
 
