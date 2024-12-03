@@ -111,30 +111,6 @@ function colliding(pigeon, enemy) {
   );
 }
 
-// function colliding2 (pigeon, enemy2) {
-//   const pigeonCollision = pigeon.getCollision();
-//   const enemy2Collision = enemy2.getCollision();
-
-//   return (
-//     pigeonCollision.x < enemy2Collision.x + enemy2Collision.width &&
-//     pigeonCollision.x + pigeonCollision.width > enemy2Collision.x &&
-//     pigeonCollision.y < enemy2Collision.y + enemy2Collision.height &&
-//     pigeonCollision.y + pigeonCollision.height > enemy2Collision.y
-//   );
-// }
-
-// function colliding3 (pigeon, enemy3) {
-//   const pigeonCollision = pigeon.getCollision();
-//   const enemy3Collision = enemy3.getCollision();
-
-//   return (
-//     pigeonCollision.x < enemy3Collision.x + enemy3Collision.width &&
-//     pigeonCollision.x + pigeonCollision.width > enemy3Collision.x &&
-//     pigeonCollision.y < enemy3Collision.y + enemy3Collision.height &&
-//     pigeonCollision.y + pigeonCollision.height > enemy3Collision.y
-//   );
-// }
-
 function gameScreen() {
   push();
   push();
@@ -195,16 +171,32 @@ function gameScreen() {
   if (colliding(pigeon, enemy1)) {
     console.log("Collision detected");
     stopPigeon(pigeon, enemy1);
+    if (breadCount > 0) {
+      breadCount -= 2;
+    } else {
+      breadCount = 0;
+    }
   }
 
   if (colliding(pigeon, enemy2)) {
     console.log("Collision detected");
     stopPigeon(pigeon, enemy2);
+    if (breadCount > 0) {
+      breadCount -= 2;
+    } else {
+      breadCount = 0;
+    }
   }
 
   if (colliding(pigeon, enemy3)) {
     console.log("Collision detected");
     stopPigeon(pigeon, enemy3);
+    breadCount -= 2;
+    if (breadCount > 0) {
+      breadCount--;
+    } else {
+      breadCount = 0;
+    }
   }
 }
 
