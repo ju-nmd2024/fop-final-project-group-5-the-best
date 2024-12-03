@@ -130,7 +130,7 @@ function gameScreen() {
   }
 
   //bread count
-  fill(255, 255, 255);
+  fill(255, 245, 255);
   rect(0, 0, 100, 50);
   fill(0, 0, 0);
   text("Bread Count: " + breadCount, 10, 30);
