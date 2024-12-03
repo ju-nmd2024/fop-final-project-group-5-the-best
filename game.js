@@ -22,6 +22,7 @@ let state = "game";
 // let gameTimer = 0;
 
 // enemy variables
+
 let enemy1;
 let enemy2;
 let enemy3;
@@ -98,17 +99,41 @@ function preload() {
 }
 window.preload = preload;
 
-function colliding(pigeon, enemy1) {
+function colliding(pigeon, enemy) {
   const pigeonCollision = pigeon.getCollision();
-  const enemy1Collision = enemy1.getCollision();
+  const enemyCollision = enemy.getCollision();
 
   return (
-    pigeonCollision.x < enemy1Collision.x + enemy1Collision.width &&
-    pigeonCollision.x + pigeonCollision.width > enemy1Collision.x &&
-    pigeonCollision.y < enemy1Collision.y + enemy1Collision.height &&
-    pigeonCollision.y + pigeonCollision.height > enemy1Collision.y
+    pigeonCollision.x < enemyCollision.x + enemyCollision.width &&
+    pigeonCollision.x + pigeonCollision.width > enemyCollision.x &&
+    pigeonCollision.y < enemyCollision.y + enemyCollision.height &&
+    pigeonCollision.y + pigeonCollision.height > enemyCollision.y
   );
 }
+
+// function colliding2 (pigeon, enemy2) {
+//   const pigeonCollision = pigeon.getCollision();
+//   const enemy2Collision = enemy2.getCollision();
+
+//   return (
+//     pigeonCollision.x < enemy2Collision.x + enemy2Collision.width &&
+//     pigeonCollision.x + pigeonCollision.width > enemy2Collision.x &&
+//     pigeonCollision.y < enemy2Collision.y + enemy2Collision.height &&
+//     pigeonCollision.y + pigeonCollision.height > enemy2Collision.y
+//   );
+// }
+
+// function colliding3 (pigeon, enemy3) {
+//   const pigeonCollision = pigeon.getCollision();
+//   const enemy3Collision = enemy3.getCollision();
+
+//   return (
+//     pigeonCollision.x < enemy3Collision.x + enemy3Collision.width &&
+//     pigeonCollision.x + pigeonCollision.width > enemy3Collision.x &&
+//     pigeonCollision.y < enemy3Collision.y + enemy3Collision.height &&
+//     pigeonCollision.y + pigeonCollision.height > enemy3Collision.y
+//   );
+// }
 
 function gameScreen() {
   push();
@@ -139,6 +164,16 @@ function gameScreen() {
   fill(0, 0, 0);
   text("Poop Count: " + poopCount, 110, 30);
 
+  const currentTime = millis();
+  if (currentTime - lastPoopTimer > 10000) {
+    poopies.push(new Poop(pigeon.x + 35, pigeon.y + 50, 1.3));
+    lastPoopTimer = currentTime;
+    poopCount = poopCount + 1;
+  }
+  for (let poop of poopies) {
+    poop.draw();
+  }
+
   bread.draw();
 
   enemy1.update();
@@ -152,16 +187,6 @@ function gameScreen() {
   enemy3.update();
   enemy3.draw();
 
-  const currentTime = millis();
-  if (currentTime - lastPoopTimer > 10000) {
-    poopies.push(new Poop(pigeon.x + 35, pigeon.y + 50, 1.3));
-    lastPoopTimer = currentTime;
-    poopCount = poopCount + 1;
-  }
-  for (let poop of poopies) {
-    poop.draw();
-  }
-
   pigeon.draw();
   pigeon.move();
 
@@ -169,6 +194,48 @@ function gameScreen() {
 
   if (colliding(pigeon, enemy1)) {
     console.log("Collision detected");
+    stopPigeon(pigeon, enemy1);
+  }
+
+  if (colliding(pigeon, enemy2)) {
+    console.log("Collision detected");
+    stopPigeon(pigeon, enemy2);
+  }
+
+  if (colliding(pigeon, enemy3)) {
+    console.log("Collision detected");
+    stopPigeon(pigeon, enemy3);
+  }
+}
+
+function stopPigeon(pigeon, enemy) {
+  const pigeonCollision = pigeon.getCollision();
+  const enemyCollision = enemy.getCollision();
+
+  if (
+    pigeonCollision.x + pigeonCollision.width > enemyCollision.x &&
+    pigeonCollision.x < enemyCollision.x + enemyCollision.width
+  ) {
+    if (
+      pigeon.y + pigeon.height > enemyCollision.y &&
+      pigeon.y < enemyCollision + enemyCollision.height
+    ) {
+      pigeon.velocityX = 0;
+      pigeon.x = enemyCollision.x - pigeon.width;
+    }
+  }
+
+  if (
+    pigeonCollision.y + pigeonCollision.height > enemyCollision.y &&
+    pigeonCollision.y < enemyCollision.y + enemyCollision.height
+  ) {
+    if (
+      pigeon.x + pigeon.width > enemyCollision.x &&
+      pigeon.x < enemyCollision.x + enemyCollision.width
+    ) {
+      pigeon.velocityY = 0;
+      pigeon.y = enemyCollision.y - pigeon.height;
+    }
   }
 }
 

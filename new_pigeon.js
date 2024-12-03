@@ -11,6 +11,8 @@ export default class PixelPigeon {
     this.speed = 10;
     bread = new Bread(0, 0, size / 35);
     this.faceLeft = false;
+    this.velocityX = 0;
+    this.velocityY = 0;
     this.data = [
       [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -244,10 +246,6 @@ export default class PixelPigeon {
       this.y + this.size * 10 > storeY
     );
   }
-
-  // breadCollision(bread) {
-
-  // }
 
   getCollision() {
     return {
