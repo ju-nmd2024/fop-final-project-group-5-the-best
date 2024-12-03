@@ -39,6 +39,10 @@ let rows;
 let size = 80;
 let bread;
 
+// poop functions
+let lastPoopTimer = 0;
+let poopies = [];
+
 function setup() {
   createCanvas(800, 800);
   // character = new Character(1650, 100, 0.4);
@@ -50,7 +54,7 @@ function setup() {
   enemy2 = new Enemy2(700, 370, 3, 2);
   enemy3 = new Enemy3(0, 370, 3, 2);
 
-  poop = new Poop(100, 200, 1.3);
+  // poop = new Poop(100, 200, 1.3);
 
   cols = width / size;
   rows = height / size;
@@ -130,7 +134,14 @@ function gameScreen() {
   enemy3.update();
   enemy3.draw();
 
-  poop.draw();
+  const currentTime = millis();
+  if (currentTime - lastPoopTimer > 10000) {
+    poopies.push(new Poop(pigeon.x + 15, pigeon.y + 50, 1.3));
+    lastPoopTimer = currentTime;
+  }
+  for (let poop of poopies) {
+    poop.draw();
+  }
 
   pigeon.draw();
   pigeon.move();
