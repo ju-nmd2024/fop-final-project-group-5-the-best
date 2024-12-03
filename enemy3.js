@@ -6,6 +6,7 @@ export default class Enemy3 {
     this.speed = speed;
     this.leftTurn = -10;
     this.rightTurn = 280;
+    this.turnLeft = false;
     this.data = [
       [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
       [0, 0, 0, 1, 3, 3, 3, 3, 2, 1, 2, 3, 3, 1, 0, 0],
@@ -35,6 +36,12 @@ export default class Enemy3 {
   draw() {
     push();
     translate(this.x, this.y);
+
+    if (this.turnLeft) {
+      scale(-1, 1);
+      translate(-this.width, 0);
+    }
+
     for (let y in this.data) {
       for (let x in this.data[y]) {
         let pixel = this.data[y][x];
@@ -86,6 +93,7 @@ export default class Enemy3 {
 
     if (this.x <= this.leftTurn || this.x >= this.rightTurn) {
       this.speed *= -1;
+      this.turnLeft = !this.turnLeft;
     }
   }
 

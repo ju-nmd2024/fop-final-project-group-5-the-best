@@ -8,8 +8,9 @@ export default class PixelPigeon {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.speed = 3;
+    this.speed = 10;
     bread = new Bread(0, 0, size / 35);
+    this.faceLeft = false;
     this.data = [
       [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -147,6 +148,11 @@ export default class PixelPigeon {
   draw() {
     push();
     translate(this.x, this.y);
+
+    if (this.faceLeft) {
+      scale(-1, 1);
+      translate(-this.width, 0);
+    }
     for (let y in this.data) {
       for (let x in this.data[y]) {
         let pixel = this.data[y][x];
@@ -195,6 +201,8 @@ export default class PixelPigeon {
     if (keyIsDown(65)) {
       // A key
       this.x -= this.speed;
+      this.faceLeft = true;
+
       if (this.x < 0) {
         this.x = 0;
       }
@@ -203,6 +211,8 @@ export default class PixelPigeon {
     if (keyIsDown(68)) {
       // D key
       this.x += this.speed;
+      this.faceLeft = false;
+
       if (this.x > 800 - 80) {
         this.x = 800 - 80;
       }

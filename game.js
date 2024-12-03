@@ -39,6 +39,12 @@ let rows;
 let size = 80;
 let bread;
 
+//bread couner
+let breadCount = 0;
+
+// poop counter
+let poopCount = 0;
+
 // poop functions
 let lastPoopTimer = 0;
 let poopies = [];
@@ -119,7 +125,19 @@ function gameScreen() {
 
   if (breadCollision()) {
     placeBread();
+    breadCount++;
   }
+
+  //bread count
+  fill(255, 255, 255);
+  rect(0, 0, 100, 50);
+  fill(0, 0, 0);
+  text("Bread Count: " + breadCount, 10, 30);
+
+  fill(255, 255, 255);
+  rect(100, 0, 100, 50);
+  fill(0, 0, 0);
+  text("Poop Count: " + poopCount, 110, 30);
 
   bread.draw();
 
@@ -136,8 +154,9 @@ function gameScreen() {
 
   const currentTime = millis();
   if (currentTime - lastPoopTimer > 10000) {
-    poopies.push(new Poop(pigeon.x + 15, pigeon.y + 50, 1.3));
+    poopies.push(new Poop(pigeon.x + 35, pigeon.y + 50, 1.3));
     lastPoopTimer = currentTime;
+    poopCount = poopCount + 1;
   }
   for (let poop of poopies) {
     poop.draw();
