@@ -19,7 +19,6 @@ let poop;
 let state = "game";
 
 //game screen:
-// let gameTimer = 0;
 
 // enemy variables
 
@@ -49,6 +48,11 @@ let poopCount = 0;
 // poop functions
 let lastPoopTimer = 0;
 let poopies = [];
+
+// game time
+
+let minutes = 3;
+let seconds = 12;
 
 function setup() {
   createCanvas(800, 800);
@@ -111,6 +115,35 @@ function colliding(pigeon, enemy) {
   );
 }
 
+function timer() {
+  fill(255, 255, 255);
+  rect(700, 0, 100, 50);
+  fill(0, 0, 0);
+  textFont("monospace");
+  textSize(30);
+  text(minutes, 720, 35);
+
+  if (seconds > 0 && frameCount % 60 === 0) {
+    seconds--;
+  } else if (seconds === 0 && minutes > 0 && frameCount % 60 === 0) {
+    minutes--;
+    seconds = 59;
+  }
+
+  if (seconds < 10) {
+    text(":0", 740, 35);
+    text(seconds, 775, 35);
+  } else {
+    text(":", 740, 35);
+    text(seconds, 760, 35);
+  }
+
+  if (minutes === 0 && seconds === 0) {
+    state = "results";
+    console.log("time's up!!!");
+  }
+}
+
 function gameScreen() {
   push();
   push();
@@ -130,15 +163,21 @@ function gameScreen() {
   }
 
   //bread count
-  fill(255, 245, 255);
+  fill(255, 255, 255);
   rect(0, 0, 100, 50);
   fill(0, 0, 0);
+  textFont("monospace");
+  textSize(10);
   text("Bread Count: " + breadCount, 10, 30);
 
   fill(255, 255, 255);
   rect(100, 0, 100, 50);
   fill(0, 0, 0);
+  textFont("monospace");
+  textSize(10);
   text("Poop Count: " + poopCount, 110, 30);
+
+  timer();
 
   const currentTime = millis();
   if (currentTime - lastPoopTimer > 10000) {
