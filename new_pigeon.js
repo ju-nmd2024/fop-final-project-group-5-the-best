@@ -8,7 +8,7 @@ export default class PixelPigeon {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.speed = 10;
+    this.speed = 3;
     bread = new Bread(0, 0, size / 35);
     this.data = [
       [
@@ -183,6 +183,11 @@ export default class PixelPigeon {
     if (this.walkShop()) {
       showPopup();
       storePopup = true;
+      fountain.x = -600;
+      fountain.y = -600;
+    } else {
+      fountain.x = 300;
+      fountain.y = 240;
     }
   }
 

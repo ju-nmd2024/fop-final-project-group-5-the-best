@@ -5,6 +5,7 @@ import PixelPigeon from "./new_pigeon.js";
 import Enemy1 from "./enemy1.js";
 import Enemy2 from "./enemy2.js";
 import Enemy3 from "./enemy3.js";
+import Poop from "./poop.js";
 
 //start screen
 let q = 80;
@@ -14,6 +15,7 @@ let lambadaBackground;
 let fountain;
 let tree;
 let pigeon;
+let poop;
 let state = "game";
 
 //game screen:
@@ -47,6 +49,8 @@ function setup() {
   enemy1 = new Enemy1(400, 100, 3, 0.02);
   enemy2 = new Enemy2(700, 370, 3, 2);
   enemy3 = new Enemy3(0, 370, 3, 2);
+
+  poop = new Poop(100, 200, 1.3);
 
   cols = width / size;
   rows = height / size;
@@ -106,7 +110,7 @@ function gameScreen() {
   // store
   push();
   fill(0, 0, 0);
-  rect(storeX, storeY, storeW, storeH);
+  rect(750, 120, 60, 60);
   pop();
 
   if (breadCollision()) {
@@ -118,7 +122,6 @@ function gameScreen() {
   enemy1.update();
   enemy1.draw();
 
-  fountain.draw();
   tree.draw();
 
   enemy2.update();
@@ -127,24 +130,16 @@ function gameScreen() {
   enemy3.update();
   enemy3.draw();
 
+  poop.draw();
+
   pigeon.draw();
   pigeon.move();
+
+  fountain.draw();
 
   if (colliding(pigeon, enemy1)) {
     console.log("Collision detected");
   }
-
-  // push();
-  // for (let i = breadArray.length - 1; i >= 0; i--) {
-  //   let bread = breadArray[i];
-  //   if (pigeon.breadCollision(bread)) {
-  //     console.log("collision detected");
-  //     breadArray.splice(i, 1);
-  //   } else {
-  //     bread.draw();
-  //   }
-  // }
-  // pop();
 }
 
 function endScreen() {
@@ -214,14 +209,7 @@ function showPopup() {
   fill(255, 255, 255);
   rect(250, 100, 300, 550);
 }
-
-// function pigeonBread(){
-//   if(distance < 30){
-//     bread.x = random(width);
-//     bread.y = random(height);
-//   }
-
-// }
+window.showPopup = showPopup;
 
 function keyPressed() {
   if (keyIsDown(32) && state === "start") {
