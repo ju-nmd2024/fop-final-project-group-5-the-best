@@ -182,13 +182,13 @@ function gameScreen() {
   timer();
 
   const currentTime = millis();
-  for (let i = 0; i <= pigeons.length; i++) {
-    if (currentTime - lastPoopTimer > 10000) {
-      poopies.push(new Poop(pigeons[i].x + 35, pigeons[i].y + 50, 1.3));
-
-      lastPoopTimer = currentTime;
-      poopCount = poopCount + 1;
+  if (currentTime - lastPoopTimer > 10000) {
+    for (let pigeon of pigeons) {
+      //pigeons auto poop feature (N)
+      poopies.push(new Poop(pigeon.x + 35, pigeon.y + 50, 1.3));
+      poopCount++;
     }
+    lastPoopTimer = currentTime;
   }
   for (let poop of poopies) {
     poop.draw();
@@ -239,7 +239,7 @@ function gameScreen() {
   if (colliding(pigeons[0], enemy1)) {
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy1);
-    if (breadCount > 0) {
+    if (breadCount >= 0) {
       breadCount -= 2;
     } else {
       breadCount = 0;
@@ -249,7 +249,7 @@ function gameScreen() {
   if (colliding(pigeons[0], enemy2)) {
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy2);
-    if (breadCount > 0) {
+    if (breadCount >= 0) {
       breadCount -= 2;
     } else {
       breadCount = 0;
@@ -259,7 +259,7 @@ function gameScreen() {
   if (colliding(pigeons[0], enemy3)) {
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy3);
-    if (breadCount > 0) {
+    if (breadCount >= 0) {
       breadCount -= 2;
     } else {
       breadCount = 0;
@@ -278,11 +278,11 @@ function stopPigeon(pigeon, enemy) {
 
   if (
     pigeonCollision.x + pigeonCollision.width > enemyCollision.x &&
-    pigeonCollision.x < enemyCollision.x + enemyCollision.width
+    pigeonCollision.x < enemyCollision.x + enemyCollision.width - 40
   ) {
     if (
       pigeons[0].y + pigeons[0].height > enemyCollision.y &&
-      pigeons[0].y < enemyCollision + enemyCollision.height
+      pigeons[0].y < enemyCollision + enemyCollision.height - 40
     ) {
       pigeons[0].velocityX = 0;
       pigeons[0].x = enemyCollision.x - pigeons[0].width;
@@ -291,11 +291,11 @@ function stopPigeon(pigeon, enemy) {
 
   if (
     pigeonCollision.y + pigeonCollision.height > enemyCollision.y &&
-    pigeonCollision.y < enemyCollision.y + enemyCollision.height
+    pigeonCollision.y < enemyCollision.y + enemyCollision.height - 40
   ) {
     if (
       pigeons[0].x + pigeons[0].width > enemyCollision.x &&
-      pigeons[0].x < enemyCollision.x + enemyCollision.width
+      pigeons[0].x < enemyCollision.x + enemyCollision.width - 40
     ) {
       pigeons[0].velocityY = 0;
       pigeons[0].y = enemyCollision.y - pigeons[0].height;
@@ -403,6 +403,7 @@ function mousePressed() {
   }
 
   if (mouseX > 475 && mouseX < 515 && mouseY > 365 && mouseY < 405) {
+    console.log("Clicked");
     if (breadCount >= 6) {
       if (pigeons.length > 0) {
         const lastPigeon = pigeons[pigeons.length - 1];
@@ -414,17 +415,26 @@ function mousePressed() {
         console.log("Not enough bread$!");
       }
     }
-    if (mouseX > 475 && mouseX < 515 && mouseY > 515 && mouseY < 555) {
-      if (breadCount >= 35) {
-        breadCount -= 35;
-        second += 30;
-        console.log("Time +30 purchased!" + minutes + "m" + seconds + "s");
+  }
+  if (mouseX > 475 && mouseX < 515 && mouseY > 515 && mouseY < 555) {
+    console.log("Clicked");
+    if (breadCount >= 10) {
+      let addedSeconds = 0;
+      breadCount -= 10;
+      if (seconds > 30) {
+        addedSeconds = 60 - seconds;
+        seconds = -addedSeconds + 30;
+        minutes++;
       } else {
-        console.log("Not enough Bread $!");
+        seconds += 30;
       }
+      console.log("Time +30 purchased!" + minutes + "m" + seconds + "s");
+    } else {
+      console.log("Not enough Bread $!");
     }
   }
 }
+
 // if (state === "start") {
 //   console.log("Start clicked");
 //   state = "game";
