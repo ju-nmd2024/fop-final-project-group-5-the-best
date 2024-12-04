@@ -182,10 +182,13 @@ function gameScreen() {
   timer();
 
   const currentTime = millis();
-  if (currentTime - lastPoopTimer > 10000) {
-    poopies.push(new Poop(pigeons[0].x + 35, pigeons[0].y + 50, 1.3));
-    lastPoopTimer = currentTime;
-    poopCount = poopCount + 1;
+  for (let i = 0; i <= pigeons.length; i++) {
+    if (currentTime - lastPoopTimer > 10000) {
+      poopies.push(new Poop(pigeons[i].x + 35, pigeons[i].y + 50, 1.3));
+
+      lastPoopTimer = currentTime;
+      poopCount = poopCount + 1;
+    }
   }
   for (let poop of poopies) {
     poop.draw();
