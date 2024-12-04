@@ -216,14 +216,15 @@ function gameScreen() {
 
     if (i > 0) {
       const followingPigeon = pigeons[i - 1];
-      pigeon.x = followingPigeon.x + 40;
-      pigeon.y = followingPigeon.y;
-    }
-    // const leader = pigeons[i ];
-    // const follower = pigeons[i - 1];
 
-    // const offsetX = 100;
-    // const offsetY = 0;
+      // const leader = pigeons[i ];
+      // const follower = pigeons[i - 1];
+
+      const offsetX = 40;
+      const offsetY = 0;
+      pigeon.x = lerp(pigeon.x, followingPigeon.x + offsetX, 0.1);
+      pigeon.y = lerp(pigeon.y, followingPigeon.y + offsetY, 0.1);
+    }
 
     // leader.x = follower.x - 100;
     // leader.y = follower.y;
