@@ -8,7 +8,7 @@ export default class PixelPigeon {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.speed = 3;
+    this.speed = 10;
     bread = new Bread(0, 0, size / 35);
     this.faceLeft = false;
     this.velocityX = 0;

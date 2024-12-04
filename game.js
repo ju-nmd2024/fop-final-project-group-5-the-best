@@ -14,7 +14,6 @@ let speed = 2;
 let lambadaBackground;
 let fountain;
 let tree;
-let pigeon;
 let poop;
 let state = "game";
 
@@ -51,9 +50,11 @@ let lastPoopTimer = 0;
 let poopies = [];
 
 // game time
-
 let minutes = 3;
 let seconds = 12;
+
+//pigeons
+let pigeons = [];
 
 function setup() {
   createCanvas(800, 800);
@@ -61,7 +62,7 @@ function setup() {
   fountain = new Fountain(300, 240, 5);
   tree = new Tree(50, 50, 3);
   // breadArray.push(new Bread(random(width), random(height), 0.55));
-  pigeon = new PixelPigeon(500, 100, 2);
+  pigeons.push(new PixelPigeon(500, 100, 2));
   enemy1 = new Enemy1(400, 100, 3, 0.02);
   enemy2 = new Enemy2(700, 370, 3, 2);
   enemy3 = new Enemy3(0, 370, 3, 2);
@@ -182,7 +183,7 @@ function gameScreen() {
 
   const currentTime = millis();
   if (currentTime - lastPoopTimer > 10000) {
-    poopies.push(new Poop(pigeon.x + 35, pigeon.y + 50, 1.3));
+    poopies.push(new Poop(pigeons[0].x + 35, pigeons[0].y + 50, 1.3));
     lastPoopTimer = currentTime;
     poopCount = poopCount + 1;
   }
@@ -203,14 +204,37 @@ function gameScreen() {
   enemy3.update();
   enemy3.draw();
 
-  pigeon.draw();
-  pigeon.move();
+  pigeons[0].draw();
+  pigeons[0].move();
 
   fountain.draw();
 
-  if (colliding(pigeon, enemy1)) {
+  for (let i = 1; i < pigeons.length; i++) {
+    const pigeon = pigeons[i];
+    pigeons[i].draw();
+    pigeons[i].move();
+
+    if (i > 0) {
+      const followingPigeon = pigeons[i - 1];
+      pigeon.x = followingPigeon.x + 40;
+      pigeon.y = followingPigeon.y;
+    }
+    // const leader = pigeons[i ];
+    // const follower = pigeons[i - 1];
+
+    // const offsetX = 100;
+    // const offsetY = 0;
+
+    // leader.x = follower.x - 100;
+    // leader.y = follower.y;
+
+    // Draw the follower
+    // follower.draw();
+  }
+
+  if (colliding(pigeons[0], enemy1)) {
     console.log("Collision detected");
-    stopPigeon(pigeon, enemy1);
+    stopPigeon(pigeons[0], enemy1);
     if (breadCount > 0) {
       breadCount -= 2;
     } else {
@@ -218,9 +242,9 @@ function gameScreen() {
     }
   }
 
-  if (colliding(pigeon, enemy2)) {
+  if (colliding(pigeons[0], enemy2)) {
     console.log("Collision detected");
-    stopPigeon(pigeon, enemy2);
+    stopPigeon(pigeons[0], enemy2);
     if (breadCount > 0) {
       breadCount -= 2;
     } else {
@@ -228,21 +252,20 @@ function gameScreen() {
     }
   }
 
-  if (colliding(pigeon, enemy3)) {
+  if (colliding(pigeons[0], enemy3)) {
     console.log("Collision detected");
-    stopPigeon(pigeon, enemy3);
-    breadCount -= 2;
+    stopPigeon(pigeons[0], enemy3);
     if (breadCount > 0) {
-      breadCount--;
+      breadCount -= 2;
     } else {
       breadCount = 0;
     }
   }
 
-  //   if (storePopup){
-  //     showPopup();
+  //     if (storePopup){
+  //       showPopup();
 
-  //   }
+  //     }
 }
 
 function stopPigeon(pigeon, enemy) {
@@ -254,11 +277,11 @@ function stopPigeon(pigeon, enemy) {
     pigeonCollision.x < enemyCollision.x + enemyCollision.width
   ) {
     if (
-      pigeon.y + pigeon.height > enemyCollision.y &&
-      pigeon.y < enemyCollision + enemyCollision.height
+      pigeons[0].y + pigeons[0].height > enemyCollision.y &&
+      pigeons[0].y < enemyCollision + enemyCollision.height
     ) {
-      pigeon.velocityX = 0;
-      pigeon.x = enemyCollision.x - pigeon.width;
+      pigeons[0].velocityX = 0;
+      pigeons[0].x = enemyCollision.x - pigeons[0].width;
     }
   }
 
@@ -267,11 +290,11 @@ function stopPigeon(pigeon, enemy) {
     pigeonCollision.y < enemyCollision.y + enemyCollision.height
   ) {
     if (
-      pigeon.x + pigeon.width > enemyCollision.x &&
-      pigeon.x < enemyCollision.x + enemyCollision.width
+      pigeons[0].x + pigeons[0].width > enemyCollision.x &&
+      pigeons[0].x < enemyCollision.x + enemyCollision.width
     ) {
-      pigeon.velocityY = 0;
-      pigeon.y = enemyCollision.y - pigeon.height;
+      pigeons[0].velocityY = 0;
+      pigeons[0].y = enemyCollision.y - pigeons[0].height;
     }
   }
 }
@@ -320,6 +343,7 @@ function draw() {
   // }
 }
 function breadCollision() {
+  let pigeon = pigeons[0];
   let d = dist(pigeon.x, pigeon.y, bread.x, bread.y);
   return d < size / 2;
 }
@@ -344,8 +368,9 @@ function keyPressed() {
   if (keyIsDown(32) && state === "start") {
     console.log("Pressed");
     state = "game";
-  } else if (key === 32 && state === "game") state = "game";
-  console.log("game time");
+    // } else if (key === 32 && state === "game") state = "game";
+    // console.log("game time");
+  }
 }
 
 // else if (key === 32 && state === "game" )
@@ -361,7 +386,7 @@ function mousePressed() {
       if (speedPurchases < 3) {
         if (breadCount >= 5) {
           breadCount -= 5;
-          pigeon.speed += 3;
+          pigeons[0].speed += 3;
           speedPurchases++;
           console.log("Speed +3 purchased!" + (3 - speedPurchases));
         } else {
@@ -374,20 +399,25 @@ function mousePressed() {
   }
 
   if (mouseX > 475 && mouseX < 515 && mouseY > 365 && mouseY < 405) {
-    if (breadCount >= 15) {
-      breadCount -= 15;
-      console.log("Pigeon +1 purchased!");
-    } else {
-      console.log("Not enough bread$!");
+    if (breadCount >= 6) {
+      if (pigeons.length > 0) {
+        const lastPigeon = pigeons[pigeons.length - 1];
+        const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
+        pigeons.push(newPigeon);
+        breadCount -= 6;
+        console.log("Pigeon +1 purchased!");
+      } else {
+        console.log("Not enough bread$!");
+      }
     }
-  }
-  if (mouseX > 475 && mouseX < 515 && mouseY > 515 && mouseY < 555) {
-    if (breadCount >= 35) {
-      breadCount -= 35;
-      second += 30;
-      console.log("Time +30 purchased!" + minutes + "m" + seconds + "s");
-    } else {
-      console.log("Not enough Bread $!");
+    if (mouseX > 475 && mouseX < 515 && mouseY > 515 && mouseY < 555) {
+      if (breadCount >= 35) {
+        breadCount -= 35;
+        second += 30;
+        console.log("Time +30 purchased!" + minutes + "m" + seconds + "s");
+      } else {
+        console.log("Not enough Bread $!");
+      }
     }
   }
 }
