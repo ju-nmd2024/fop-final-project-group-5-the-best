@@ -28,6 +28,7 @@ let enemy3;
 
 // store
 let storePopup = false;
+let speedPurchases = 0;
 let storeX = 700;
 let storeY = 70;
 let storeW = 50;
@@ -237,6 +238,11 @@ function gameScreen() {
       breadCount = 0;
     }
   }
+
+  //   if (storePopup){
+  //     showPopup();
+
+  //   }
 }
 
 function stopPigeon(pigeon, enemy) {
@@ -306,10 +312,12 @@ function draw() {
     //     //   gameTimer = 0;
     //     state = "result";
     //     }
-  } else if (state === "result") {
-    console.log("time end");
-    endScreen();
   }
+
+  // else if (state === "result") {
+  //   console.log("time end");
+  //   endScreen();
+  // }
 }
 function breadCollision() {
   let d = dist(pigeon.x, pigeon.y, bread.x, bread.y);
@@ -331,6 +339,70 @@ function placeBread() {
 }
 
 window.draw = draw;
+
+function keyPressed() {
+  if (keyIsDown(32) && state === "start") {
+    console.log("Pressed");
+    state = "game";
+  } else if (key === 32 && state === "game") state = "game";
+  console.log("game time");
+}
+
+// else if (key === 32 && state === "game" )
+//   state = "time over";
+
+window.keyPressed = keyPressed;
+
+// let gameTimer = 0;
+
+function mousePressed() {
+  if (storePopup) {
+    if (mouseX > 475 && mouseX < 515 && mouseY > 215 && mouseY < 255) {
+      if (speedPurchases < 3) {
+        if (breadCount >= 5) {
+          breadCount -= 5;
+          pigeon.speed += 3;
+          speedPurchases++;
+          console.log("Speed +3 purchased!" + (3 - speedPurchases));
+        } else {
+          console.log("Not enought Bread $!");
+        }
+      } else {
+        console.log("limit has reached!");
+      }
+    }
+  }
+
+  if (mouseX > 475 && mouseX < 515 && mouseY > 365 && mouseY < 405) {
+    if (breadCount >= 15) {
+      breadCount -= 15;
+      console.log("Pigeon +1 purchased!");
+    } else {
+      console.log("Not enough bread$!");
+    }
+  }
+  if (mouseX > 475 && mouseX < 515 && mouseY > 515 && mouseY < 555) {
+    if (breadCount >= 35) {
+      breadCount -= 35;
+      second += 30;
+      console.log("Time +30 purchased!" + minutes + "m" + seconds + "s");
+    } else {
+      console.log("Not enough Bread $!");
+    }
+  }
+}
+// if (state === "start") {
+//   console.log("Start clicked");
+//   state = "game";
+// } else if (state === "game") {
+//   state = "result";
+
+// } else if (state === "result") {
+//   console.log("again cliked");
+//   state = "game";
+// }
+
+window.mousePressed = mousePressed;
 
 function showPopup() {
   noStroke();
@@ -387,73 +459,5 @@ function showPopup() {
   text("$35", 482, 540);
   pop();
 }
+
 window.showPopup = showPopup;
-
-function keyPressed() {
-  if (keyIsDown(32) && state === "start") {
-    console.log("Pressed");
-    state = "game";
-  } else if (key === 32 && state === "game") state = "game";
-  console.log("game time");
-}
-
-// else if (key === 32 && state === "game" )
-//   state = "time over";
-
-window.keyPressed = keyPressed;
-
-// let gameTimer = 0;
-
-function mousePressed() {
-  if (storePopup) {
-    if (mouseX > 275 && mouseX < 455 && mouseY > 200 && mouseY < 270) {
-      if (breadCount >= 5) {
-        breadCount -= 5;
-        pigeon.speed += 3;
-        push();
-        fill("#710000");
-        rect(275, 200, 60, 70);
-        pop();
-        console.log("Speed +3 purchased!");
-      } else {
-        console.log("Not enought Bread $!");
-      }
-    }
-    if (mouseX > 275 && mouseX < 455 && mouseY > 350 && mouseY < 420) {
-      if (breadCount >= 15) {
-        breadCount -= 15;
-        push();
-        fill("#710000");
-        rect(275, 350, 60, 70);
-        pop();
-        console.log("Pigeon +1 purchased!");
-      } else {
-        console.log("Not enough bread$!");
-      }
-    }
-    if (mouseX > 275 && mouseX < 455 && mouseY > 500 && mouseY < 570) {
-      if (breadCount >= 35) {
-        breadCount -= 35;
-        second += 30;
-        push();
-        fill("#710000");
-        rect(275, 500, 60, 70);
-        pop();
-        console.log("Time +30 purchased!");
-      } else {
-        console.log("Not enough Bread $!");
-      }
-    }
-  }
-  // if (state === "start") {
-  //   console.log("Start clicked");
-  //   state = "game";
-  // } else if (state === "game") {
-  //   state = "result";
-
-  // } else if (state === "result") {
-  //   console.log("again cliked");
-  //   state = "game";
-  // }
-}
-window.mousePressed = mousePressed;
