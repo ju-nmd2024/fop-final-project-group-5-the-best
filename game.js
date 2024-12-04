@@ -168,7 +168,7 @@ function gameScreen() {
   fill(0, 0, 0);
   textFont("monospace");
   textSize(10);
-  text("Bread Count: " + breadCount, 10, 30);
+  text("Bread $: " + breadCount, 20, 30);
 
   fill(255, 255, 255);
   rect(100, 0, 100, 50);
@@ -333,9 +333,59 @@ function placeBread() {
 window.draw = draw;
 
 function showPopup() {
+  noStroke();
   background(0, 0, 0, 180);
-  fill(255, 255, 255);
+  strokeWeight(5);
+  fill("#fcefb4");
   rect(250, 100, 300, 550);
+  push();
+  noStroke();
+  fill(0, 0, 0);
+  textStyle(BOLD);
+  textSize(25);
+  textFont("monospace");
+  text("Bread Store", 270, 140);
+  pop();
+  push();
+  noStroke();
+  fill(0, 0, 0);
+  textSize(15);
+  textStyle(BOLD);
+  textFont("monospace");
+  text("Speed +3", 275, 190);
+  text("Pigeon +1", 275, 340);
+  text("Time +30s", 275, 490);
+  text("$" + breadCount, 500, 140);
+  pop();
+
+  push();
+  stroke("#710000");
+  //boost main rectangles
+  rect(275, 200, 180, 70);
+  rect(275, 350, 180, 70);
+  rect(275, 500, 180, 70);
+
+  rect(475, 215, 40, 40);
+  rect(475, 365, 40, 40);
+  rect(475, 515, 40, 40);
+
+  line(335, 200, 335, 270);
+  line(395, 200, 395, 270);
+
+  line(335, 350, 335, 420);
+  line(395, 350, 395, 420);
+  pop();
+
+  push();
+  noStroke();
+  fill(0, 0, 0);
+  textSize(15);
+  textStyle(BOLD);
+  textFont("monospace");
+  text("$5", 486, 240);
+  text("$15", 482, 390);
+  text("$35", 482, 540);
+  pop();
 }
 window.showPopup = showPopup;
 
@@ -354,15 +404,56 @@ window.keyPressed = keyPressed;
 
 // let gameTimer = 0;
 
-// function mouseClicked() {
-//   if (state === "start") {
-//     console.log("Start clicked");
-//     state = "game";
-//   } else if (state === "game") {
-//     state = "result";
+function mousePressed() {
+  if (storePopup) {
+    if (mouseX > 275 && mouseX < 455 && mouseY > 200 && mouseY < 270) {
+      if (breadCount >= 5) {
+        breadCount -= 5;
+        pigeon.speed += 3;
+        push();
+        fill("#710000");
+        rect(275, 200, 60, 70);
+        pop();
+        console.log("Speed +3 purchased!");
+      } else {
+        console.log("Not enought Bread $!");
+      }
+    }
+    if (mouseX > 275 && mouseX < 455 && mouseY > 350 && mouseY < 420) {
+      if (breadCount >= 15) {
+        breadCount -= 15;
+        push();
+        fill("#710000");
+        rect(275, 350, 60, 70);
+        pop();
+        console.log("Pigeon +1 purchased!");
+      } else {
+        console.log("Not enough bread$!");
+      }
+    }
+    if (mouseX > 275 && mouseX < 455 && mouseY > 500 && mouseY < 570) {
+      if (breadCount >= 35) {
+        breadCount -= 35;
+        second += 30;
+        push();
+        fill("#710000");
+        rect(275, 500, 60, 70);
+        pop();
+        console.log("Time +30 purchased!");
+      } else {
+        console.log("Not enough Bread $!");
+      }
+    }
+  }
+  // if (state === "start") {
+  //   console.log("Start clicked");
+  //   state = "game";
+  // } else if (state === "game") {
+  //   state = "result";
 
-//   } else if (state === "result") {
-//     console.log("again cliked");
-//     state = "game";
-//   }
-// }
+  // } else if (state === "result") {
+  //   console.log("again cliked");
+  //   state = "game";
+  // }
+}
+window.mousePressed = mousePressed;
