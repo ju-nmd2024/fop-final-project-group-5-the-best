@@ -20,6 +20,7 @@ let state = "start";
 let storeBackground;
 let endScreenBackground;
 let startScreenBackground;
+let rulesBackground;
 
 //game screen:
 
@@ -58,7 +59,7 @@ let seconds = 0;
 let pigeons = [];
 
 //boost colors
-let c = 1;
+let c = 1; // every boost color - https://www.youtube.com/watch?v=kyN0pe42uhM
 let c2 = 1;
 let c3 = 1;
 let c4 = 1;
@@ -89,7 +90,8 @@ function setup() {
 
   // poop = new Poop(100, 200, 1.3);
 
-  cols = width / size;
+  cols = width / size; // snake inspo w food https://www.youtube.com/watch?v=dEUQYmnt1RI & https://www.youtube.com/watch?v=fTKUPehFF2A
+
   rows = height / size;
 
   bread = new Bread(0, 0, size / 35);
@@ -121,19 +123,11 @@ function startScreen() {
 }
 
 function ruleScreen() {
-  background(255, 255, 255);
-  noStroke();
-  fill(180, 180, 150);
-  rect(100, 30, 600, 700, 30);
-
-  textFont("monospace");
-  textSize(40);
-  fill(0, 0, 0);
-  text("Rules:", 325, 90);
+  image(rulesBackground, 0, 0, 800, 800);
 
   fill(255, 90, 90);
   textSize(20);
-  text("< press space to play > ", 260, 700);
+  text("< press space to play > ", 280, 750);
 }
 
 function preload() {
@@ -141,10 +135,12 @@ function preload() {
   storeBackground = loadImage("Store.png");
   endScreenBackground = loadImage("End Screen.png");
   startScreenBackground = loadImage("Start Screen.png");
+  rulesBackground = loadImage("RULESS.png");
 }
 window.preload = preload;
 
 function colliding(pigeon, enemy) {
+  // Character enemy collision - https://chatgpt.com/share/675173a2-a7e0-800a-99c1-49bb0cc13b5e
   const pigeonCollision = pigeon.getCollision();
   const enemyCollision = enemy.getCollision();
 
@@ -157,6 +153,7 @@ function colliding(pigeon, enemy) {
 }
 
 function timer() {
+  // Timer: https://editor.p5js.org/jas920/sketches/GvjzfEFzk & https://www.youtube.com/watch?v=rKhwDhp9dcs & https://editor.p5js.org/juliamlu/sketches/s42TrSkcr
   fill(255, 255, 255);
   rect(700, 0, 100, 50);
   fill(0, 0, 0);
@@ -223,14 +220,15 @@ function gameScreen() {
   const currentTime = millis();
   if (currentTime - lastPoopTimer > 10000) {
     for (let pigeon of pigeons) {
-      //pigeons auto poop feature (N)
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
       poopies.push(new Poop(pigeon.x + 35, pigeon.y + 50, 1.3));
-      poopCount++;
+      poopCount++; // Follower Pigeons Auto Poop Feature - https://chatgpt.com/share/6751cc34-261c-8002-af84-63c54affefa2
     }
     lastPoopTimer = currentTime;
   }
   for (let poop of poopies) {
-    poop.draw();
+    // https://www.w3schools.com/js/js_loop_forof.asp
+    poop.draw(); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
   }
 
   bread.draw();
@@ -268,6 +266,7 @@ function gameScreen() {
   fountain.draw();
 
   for (let i = 1; i < pigeons.length; i++) {
+    // // Boosters: https://chatgpt.com/share/675173d1-2730-800a-a207-0e7c3fe940ca
     const pigeon = pigeons[i];
     pigeons[i].draw();
     pigeons[i].move();
@@ -282,6 +281,7 @@ function gameScreen() {
   }
 
   if (colliding(pigeons[0], enemy1)) {
+    // Character enemy collision - https://chatgpt.com/share/675173a2-a7e0-800a-99c1-49bb0cc13b5e
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy1);
     if (breadCount > 0) {
@@ -292,6 +292,7 @@ function gameScreen() {
   }
 
   if (colliding(pigeons[0], enemy2)) {
+    // Character enemy collision - https://chatgpt.com/share/675173a2-a7e0-800a-99c1-49bb0cc13b5e
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy2);
     if (breadCount > 0) {
@@ -302,6 +303,7 @@ function gameScreen() {
   }
 
   if (colliding(pigeons[0], enemy3)) {
+    // Character enemy collision - https://chatgpt.com/share/675173a2-a7e0-800a-99c1-49bb0cc13b5e
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy3);
     if (breadCount > 0) {
@@ -310,14 +312,10 @@ function gameScreen() {
       breadCount = 0;
     }
   }
-
-  //     if (storePopup){
-  //       showPopup();
-
-  //     }
 }
 
 function stopPigeon(pigeon, enemy) {
+  // Character enemy collision - https://chatgpt.com/share/675173a2-a7e0-800a-99c1-49bb0cc13b5e
   const pigeonCollision = pigeon.getCollision();
   const enemyCollision = enemy.getCollision();
 
@@ -350,25 +348,25 @@ function stopPigeon(pigeon, enemy) {
 
 function endScreen() {
   push();
-
   image(endScreenBackground, 0, 0, 800, 800);
   translate(170, 200);
 
-  push();
-  if (poopCount >= 50) {
+  if (poopCount >= 55) {
     textFont("monospace");
     textSize(50);
     fill(0, 0, 0);
+    text(poopCount, 210, 60);
     text("Yay! You pooped", q - 60, z + 40);
     text("the park", q + 40, z + 110);
     q = q + speed;
     if (q > 100 || q < 60) {
       speed = speed * -1; // Reverse speed
     }
-  } else {
+  } else if (poopCount < 55) {
     textFont("monospace");
     textSize(50);
     fill(0, 0, 0);
+    text(poopCount, 220, 60);
     text("You haven't", q, z + 40);
     text("pooped enough", q - 30, z + 110);
     q = q + speed;
@@ -376,18 +374,16 @@ function endScreen() {
       speed = speed * -1; // Reverse speed
     }
   }
-  pop();
 
   fill(255, 90, 90);
   textSize(20);
-  text("< press space to play again > ", 110, 350);
+  text("< press space to play again > ", 70, 350);
 
   pop();
 }
 
 function resetGame() {
   breadCount = 0;
-  poopCount = 0;
   speedPurchases = 0;
   pigeonPurchases = 0;
   timePurchases = 0;
@@ -419,6 +415,7 @@ function breadCollision() {
   return d < size / 2;
 }
 function displayBoard() {
+  //  snake inspo w food https://www.youtube.com/watch?v=dEUQYmnt1RI & https://www.youtube.com/watch?v=fTKUPehFF2A
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       noStroke();
@@ -427,6 +424,7 @@ function displayBoard() {
   }
 }
 function placeBread() {
+  //  snake inspo w food https://www.youtube.com/watch?v=dEUQYmnt1RI & https://www.youtube.com/watch?v=fTKUPehFF2A
   let randomX = Math.floor(Math.random() * cols);
   let randomY = Math.floor(Math.random() * rows);
   bread.x = randomX * size;
@@ -443,6 +441,7 @@ function keyPressed() {
     state = "game";
   } else if (keyIsDown(32) && state === "result") {
     state = "game";
+    poopCount = 0;
   }
 }
 
@@ -454,6 +453,7 @@ window.keyPressed = keyPressed;
 // let gameTimer = 0;
 
 function mousePressed() {
+  // Boosters: https://chatgpt.com/share/675173d1-2730-800a-a207-0e7c3fe940ca
   if (storePopup) {
     if (mouseX > 475 && mouseX < 515 && mouseY > 215 && mouseY < 255) {
       if (speedPurchases === 0) {
@@ -596,6 +596,7 @@ function mousePressed() {
 window.mousePressed = mousePressed;
 
 function showPopup() {
+  // Pigeon store logic https://chatgpt.com/share/6751737a-5a90-800a-9e13-ec313215ce46
   noStroke();
   background(0, 0, 0, 180);
   strokeWeight(5);
@@ -626,56 +627,56 @@ function showPopup() {
   //boost main rectangles
   push();
   //speed boost rectangles
-  if (c === 1) fill("#fcefb4");
+  if (c === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c === 2) fill("#710000");
   rect(275, 200, 60, 70);
   pop();
 
   push();
-  if (c2 === 1) fill("#fcefb4");
+  if (c2 === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c2 === 2) fill("#710000");
   rect(335, 200, 60, 70);
   pop();
 
   push();
-  if (c3 === 1) fill("#fcefb4");
+  if (c3 === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c3 === 2) fill("#710000");
   rect(395, 200, 60, 70);
   pop();
 
   push();
   //pigeon boost rectangles
-  if (c4 === 1) fill("#fcefb4");
+  if (c4 === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c4 === 2) fill("#710000");
   rect(275, 350, 36, 70);
   pop();
 
   push();
-  if (c5 === 1) fill("#fcefb4");
+  if (c5 === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c5 === 2) fill("#710000");
   rect(311, 350, 36, 70);
   pop();
 
   push();
-  if (c6 === 1) fill("#fcefb4");
+  if (c6 === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c6 === 2) fill("#710000");
   rect(347, 350, 36, 70);
   pop();
 
   push();
-  if (c7 === 1) fill("#fcefb4");
+  if (c7 === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c7 === 2) fill("#710000");
   rect(383, 350, 36, 70);
   pop();
 
   push();
-  if (c8 === 1) fill("#fcefb4");
+  if (c8 === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c8 === 2) fill("#710000");
   rect(419, 350, 36, 70);
   pop();
 
   push();
-  if (c9 === 1) fill("#fcefb4");
+  if (c9 === 1) fill("#fcefb4"); // https://www.youtube.com/watch?v=kyN0pe42uhM
   if (c9 === 2) fill("#710000");
   rect(275, 500, 180, 70);
   pop();

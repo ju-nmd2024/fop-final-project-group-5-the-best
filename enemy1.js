@@ -90,6 +90,7 @@ export default class Enemy1 {
   }
 
   getCollision() {
+    // Character enemy collision - https://chatgpt.com/share/675173a2-a7e0-800a-99c1-49bb0cc13b5e
     return {
       x: this.x - this.width / 2,
       y: this.y - this.height / 2,

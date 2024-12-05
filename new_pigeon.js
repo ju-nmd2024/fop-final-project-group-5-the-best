@@ -229,6 +229,7 @@ export default class PixelPigeon {
   }
 
   walkShop() {
+    // Pigeon store logic https://chatgpt.com/share/6751737a-5a90-800a-9e13-ec313215ce46
     let storeX = 700;
     let storeY = 70;
     let storeW = 50;
@@ -243,6 +244,7 @@ export default class PixelPigeon {
   }
 
   getCollision() {
+    // Character enemy collision - https://chatgpt.com/share/675173a2-a7e0-800a-99c1-49bb0cc13b5e
     return {
       x: this.x - this.width / 2,
       y: this.y - this.height / 2,
