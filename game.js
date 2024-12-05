@@ -15,7 +15,10 @@ let lambadaBackground;
 let fountain;
 let tree;
 let poop;
-let state = "game";
+let state = "start";
+let storeBackground;
+let endScreenBackground;
+let startScreenBackground;
 
 //game screen:
 
@@ -51,8 +54,8 @@ let lastPoopTimer = 0;
 let poopies = [];
 
 // game time
-let minutes = 3;
-let seconds = 12;
+let minutes = 0;
+let seconds = 20;
 
 //pigeons
 let pigeons = [];
@@ -107,9 +110,25 @@ function startScreen() {
 
   fill(255, 90, 90);
   textSize(20);
-  text("< press space to start > ", 150, 300);
+  text("< press space to rules > ", 150, 300);
 
   pop();
+}
+
+function ruleScreen() {
+  background(255, 255, 255);
+  noStroke();
+  fill(180, 180, 150);
+  rect(100, 30, 600, 700, 30);
+
+  textFont("monospace");
+  textSize(40);
+  fill(0, 0, 0);
+  text("Rules:", 325, 90);
+
+  fill(255, 90, 90);
+  textSize(20);
+  text("< press space to play > ", 260, 700);
 }
 
 function preload() {
@@ -156,7 +175,7 @@ function timer() {
   }
 
   if (minutes === 0 && seconds === 0) {
-    state = "results";
+    state = "result";
     console.log("time's up!!!");
   }
 }
@@ -322,25 +341,51 @@ function endScreen() {
   push();
 
   image(endScreenBackground, 0, 0, 800, 800);
-
   translate(170, 200);
 
   push();
-  textFont("monospace");
-  textSize(50);
-  fill(0, 0, 0);
-  text("You pooped!", q, z + 40);
-  q = q + speed;
-  if (q > 100 || q < 60) {
-    speed = speed * -1; // Reverse speed
+  if (poopCount >= 50) {
+    textFont("monospace");
+    textSize(50);
+    fill(0, 0, 0);
+    text("Yay! You pooped", q - 60, z + 40);
+    text("the park", q + 40, z + 110);
+    q = q + speed;
+    if (q > 100 || q < 60) {
+      speed = speed * -1; // Reverse speed
+    }
+  } else {
+    textFont("monospace");
+    textSize(50);
+    fill(0, 0, 0);
+    text("You haven't", q, z + 40);
+    text("pooped enough", q - 30, z + 110);
+    q = q + speed;
+    if (q > 100 || q < 60) {
+      speed = speed * -1; // Reverse speed
+    }
   }
   pop();
 
   fill(255, 90, 90);
   textSize(20);
-  text("< press space to play again > ", 115, 300);
+  text("< press space to play again > ", 110, 350);
 
   pop();
+}
+
+function resetGame() {
+  breadCount = 0;
+  poopCount = 0;
+  speedPurchases = 0;
+  pigeonPurchases = 0;
+  timePurchases = 0;
+  minutes = 3;
+  seconds = 0;
+  pigeons = [new PixelPigeon(500, 100, 2)];
+  poopies = [];
+  console.log("reset the game");
+  c = c2 = c3 = c4 = c5 = c6 = c7 = c8 = c9 = 1;
 }
 
 window.setup = setup;
@@ -348,20 +393,13 @@ window.setup = setup;
 function draw() {
   if (state === "start") {
     startScreen();
+  } else if (state === "rules") {
+    ruleScreen();
   } else if (state === "game") {
     gameScreen();
-    //   //     // gameTimer = gameTimer + 1;
-    //   //     // if(gameTimer >= 200) {
-    //   //     //   gameTimer = 0;
-    //   //     state = "result";
-    //   //     }
-    // }
-
-    // endScreen();
-
-    // else if (state === "result") {
-    //   console.log("time end");
-    //   endScreen();
+  } else if (state === "result") {
+    resetGame();
+    endScreen();
   }
 }
 function breadCollision() {
@@ -389,9 +427,11 @@ window.draw = draw;
 function keyPressed() {
   if (keyIsDown(32) && state === "start") {
     console.log("Pressed");
+    state = "rules";
+  } else if (keyIsDown(32) && state === "rules") {
     state = "game";
-    // } else if (key === 32 && state === "game") state = "game";
-    // console.log("game time");
+  } else if (keyIsDown(32) && state === "result") {
+    state = "game";
   }
 }
 

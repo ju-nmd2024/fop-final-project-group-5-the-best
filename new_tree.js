@@ -3,7 +3,7 @@ function setup() {
   tree = new Tree(0, 100, 10);
 }
 
-class Tree {
+export default class Tree {
   constructor(x, y, size = 10) {
     this.x = x;
     this.y = y;
