@@ -91,14 +91,14 @@ function setup() {
 
 function startScreen() {
   push();
+  image(startScreenBackground, 0, 0, 800, 800);
   translate(170, 200);
-  background(255, 255, 255);
 
   push();
   textFont("monospace");
   textSize(50);
   fill(0, 0, 0);
-  text("Pigeon Lambada", q, z);
+  text("Pigeon Lambada", q - 50, z + 70);
   q = q + speed;
   if (q > 100 || q < 50) {
     speed = speed * -1; // Reverse speed
@@ -107,13 +107,16 @@ function startScreen() {
 
   fill(255, 90, 90);
   textSize(20);
-  text("< press space to start > ", 200, 300);
+  text("< press space to start > ", 150, 300);
 
   pop();
 }
 
 function preload() {
-  lambadaBackground = loadImage("Pigeon Lambada.png");
+  lambadaBackground = loadImage("Lambada Pigeon.png");
+  storeBackground = loadImage("Store.png");
+  endScreenBackground = loadImage("End Screen.png");
+  startScreenBackground = loadImage("Start Screen.png");
 }
 window.preload = preload;
 
@@ -168,8 +171,7 @@ function gameScreen() {
 
   // store
   push();
-  fill(0, 0, 0);
-  rect(750, 120, 60, 60);
+  image(storeBackground, 730, 120, 70, 70);
   pop();
 
   if (breadCollision()) {
@@ -319,14 +321,15 @@ function stopPigeon(pigeon, enemy) {
 function endScreen() {
   push();
 
+  image(endScreenBackground, 0, 0, 800, 800);
+
   translate(170, 200);
-  background(255, 255, 255);
 
   push();
   textFont("monospace");
   textSize(50);
   fill(0, 0, 0);
-  text("You pooped!", q, z);
+  text("You pooped!", q, z + 40);
   q = q + speed;
   if (q > 100 || q < 60) {
     speed = speed * -1; // Reverse speed
@@ -335,7 +338,7 @@ function endScreen() {
 
   fill(255, 90, 90);
   textSize(20);
-  text("< press space to play again > ", 120, 300);
+  text("< press space to play again > ", 115, 300);
 
   pop();
 }
@@ -347,17 +350,19 @@ function draw() {
     startScreen();
   } else if (state === "game") {
     gameScreen();
-    //     // gameTimer = gameTimer + 1;
-    //     // if(gameTimer >= 200) {
-    //     //   gameTimer = 0;
-    //     state = "result";
-    //     }
-  }
+    //   //     // gameTimer = gameTimer + 1;
+    //   //     // if(gameTimer >= 200) {
+    //   //     //   gameTimer = 0;
+    //   //     state = "result";
+    //   //     }
+    // }
 
-  // else if (state === "result") {
-  //   console.log("time end");
-  //   endScreen();
-  // }
+    // endScreen();
+
+    // else if (state === "result") {
+    //   console.log("time end");
+    //   endScreen();
+  }
 }
 function breadCollision() {
   let pigeon = pigeons[0];
