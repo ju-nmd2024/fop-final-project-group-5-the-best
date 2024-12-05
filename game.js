@@ -6,6 +6,7 @@ import Enemy1 from "./enemy1.js";
 import Enemy2 from "./enemy2.js";
 import Enemy3 from "./enemy3.js";
 import Poop from "./poop.js";
+import Bench from "./bench.js";
 
 //start screen
 let q = 80;
@@ -13,9 +14,9 @@ let z = 100;
 let speed = 2;
 let lambadaBackground;
 let fountain;
-let tree;
-let poop;
-let state = "start";
+let benches = [];
+let trees = [];
+let state = "game";
 let storeBackground;
 let endScreenBackground;
 let startScreenBackground;
@@ -32,10 +33,6 @@ let storePopup = false;
 let speedPurchases = 0;
 let pigeonPurchases = 0;
 let timePurchases = 0;
-let storeX = 700;
-let storeY = 70;
-let storeW = 50;
-let storeH = 50;
 
 //bread grid
 let cols;
@@ -75,12 +72,20 @@ function setup() {
   createCanvas(800, 800);
   // character = new Character(1650, 100, 0.4);
   fountain = new Fountain(300, 240, 5);
-  tree = new Tree(50, 50, 3);
+  trees.push(new Tree(20, 190, 3));
+  trees.push(new Tree(190, 50, 3));
+  trees.push(new Tree(580, 20, 3));
+  trees.push(new Tree(650, 520, 3));
+  trees.push(new Tree(500, 650, 3));
+  trees.push(new Tree(10, 680, 3));
   // breadArray.push(new Bread(random(width), random(height), 0.55));
   pigeons.push(new PixelPigeon(500, 100, 2));
   enemy1 = new Enemy1(400, 100, 3, 0.02);
   enemy2 = new Enemy2(700, 370, 3, 2);
   enemy3 = new Enemy3(0, 370, 3, 2);
+  benches.push(new Bench(150, 520, 3.5));
+  benches.push(new Bench(690, 280, 3.5));
+  benches.push(new Bench(120, 100, 3.5));
 
   // poop = new Poop(100, 200, 1.3);
 
@@ -233,13 +238,19 @@ function gameScreen() {
   enemy1.update();
   enemy1.draw();
 
-  tree.draw();
+  for (let tree of trees) {
+    tree.draw();
+  }
 
   enemy2.update();
   enemy2.draw();
 
   enemy3.update();
   enemy3.draw();
+
+  for (let bench of benches) {
+    bench.draw();
+  }
 
   pigeons[0].draw();
   pigeons[0].move();

@@ -239,6 +239,11 @@ export default class PixelPigeon {
   }
 
   walkShop() {
+    let storeX = 700;
+    let storeY = 70;
+    let storeW = 50;
+    let storeH = 50;
+
     return (
       this.x < storeX + 50 + storeW &&
       this.x + this.size * 10 > storeX &&
