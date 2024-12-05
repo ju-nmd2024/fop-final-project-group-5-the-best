@@ -20,7 +20,6 @@ let state = "game";
 //game screen:
 
 // enemy variables
-
 let enemy1;
 let enemy2;
 let enemy3;
@@ -39,7 +38,7 @@ let rows;
 let size = 80;
 let bread;
 
-//bread couner
+//bread counter
 let breadCount = 0;
 
 // poop counter
@@ -148,6 +147,7 @@ function timer() {
 
 function gameScreen() {
   push();
+
   push();
   displayBoard();
   image(lambadaBackground, 0, 0, 800, 800);
