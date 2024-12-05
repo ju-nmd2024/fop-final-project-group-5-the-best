@@ -170,7 +170,7 @@ function gameScreen() {
   fill(0, 0, 0);
   textFont("monospace");
   textSize(10);
-  text("Bread $: " + breadCount, 20, 30);
+  text("Bread $ " + breadCount, 20, 30);
 
   fill(255, 255, 255);
   rect(100, 0, 100, 50);
