@@ -254,6 +254,7 @@ function gameScreen() {
 
   pigeons[0].draw();
   pigeons[0].move();
+
   if (pigeons[0].walkShop()) {
     showPopup();
     storePopup = true;
@@ -494,28 +495,28 @@ function mousePressed() {
   if (mouseX > 475 && mouseX < 515 && mouseY > 365 && mouseY < 405) {
     console.log("Clicked");
     if (pigeonPurchases === 0) {
-      if (breadCount >= 10) {
+      if (breadCount >= 8) {
         if (pigeons.length > 0) {
           const lastPigeon = pigeons[pigeons.length - 1];
           const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
           pigeons.push(newPigeon);
           c4 = 2;
           pigeonPurchases++;
-          breadCount -= 10;
+          breadCount -= 8;
           console.log("Pigeon +1 purchased!");
         } else {
           console.log("Not enough bread$!");
         }
       }
     } else if (pigeonPurchases === 1) {
-      if (breadCount >= 10) {
+      if (breadCount >= 8) {
         if (pigeons.length > 0) {
           const lastPigeon = pigeons[pigeons.length - 1];
           const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
           pigeons.push(newPigeon);
           c5 = 2;
           pigeonPurchases++;
-          breadCount -= 10;
+          breadCount -= 8;
           console.log("Pigeon +1 purchased!");
         } else {
           console.log("Not enough bread$!");
@@ -591,17 +592,6 @@ function mousePressed() {
     }
   }
 }
-
-// if (state === "start") {
-//   console.log("Start clicked");
-//   state = "game";
-// } else if (state === "game") {
-//   state = "result";
-
-// } else if (state === "result") {
-//   console.log("again cliked");
-//   state = "game";
-// }
 
 window.mousePressed = mousePressed;
 
@@ -702,8 +692,8 @@ function showPopup() {
   textStyle(BOLD);
   textFont("monospace");
   text("$5", 486, 240);
-  text("$15", 482, 390);
-  text("$35", 482, 540);
+  text("$8", 485, 390);
+  text("$20", 482, 540);
   pop();
 }
 
