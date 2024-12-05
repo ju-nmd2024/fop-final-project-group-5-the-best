@@ -16,7 +16,7 @@ let lambadaBackground;
 let fountain;
 let benches = [];
 let trees = [];
-let state = "game";
+let state = "start";
 let storeBackground;
 let endScreenBackground;
 let startScreenBackground;
@@ -51,8 +51,8 @@ let lastPoopTimer = 0;
 let poopies = [];
 
 // game time
-let minutes = 0;
-let seconds = 20;
+let minutes = 3;
+let seconds = 0;
 
 //pigeons
 let pigeons = [];
@@ -458,7 +458,7 @@ function mousePressed() {
       if (speedPurchases === 0) {
         if (breadCount >= 5) {
           breadCount -= 5;
-          pigeons[0].speed += 3;
+          pigeons[0].speed += 2;
           speedPurchases++;
           c = 2;
           console.log("Speed +3 purchased!" + (3 - speedPurchases));
@@ -468,7 +468,7 @@ function mousePressed() {
       } else if (speedPurchases === 1) {
         if (breadCount >= 5) {
           breadCount -= 5;
-          pigeons[0].speed += 3;
+          pigeons[0].speed += 2;
           speedPurchases++;
           c2 = 2;
           console.log("Speed +3 purchased!" + (3 - speedPurchases));
@@ -478,7 +478,7 @@ function mousePressed() {
       } else if (speedPurchases === 2) {
         if (breadCount >= 5) {
           breadCount -= 5;
-          pigeons[0].speed += 3;
+          pigeons[0].speed += 2;
           speedPurchases++;
           c3 = 2;
           console.log("Speed +3 purchased!" + (3 - speedPurchases));
@@ -494,70 +494,70 @@ function mousePressed() {
   if (mouseX > 475 && mouseX < 515 && mouseY > 365 && mouseY < 405) {
     console.log("Clicked");
     if (pigeonPurchases === 0) {
-      if (breadCount >= 2) {
+      if (breadCount >= 10) {
         if (pigeons.length > 0) {
           const lastPigeon = pigeons[pigeons.length - 1];
           const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
           pigeons.push(newPigeon);
           c4 = 2;
           pigeonPurchases++;
-          breadCount -= 2;
+          breadCount -= 10;
           console.log("Pigeon +1 purchased!");
         } else {
           console.log("Not enough bread$!");
         }
       }
     } else if (pigeonPurchases === 1) {
-      if (breadCount >= 2) {
+      if (breadCount >= 10) {
         if (pigeons.length > 0) {
           const lastPigeon = pigeons[pigeons.length - 1];
           const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
           pigeons.push(newPigeon);
           c5 = 2;
           pigeonPurchases++;
-          breadCount -= 2;
+          breadCount -= 10;
           console.log("Pigeon +1 purchased!");
         } else {
           console.log("Not enough bread$!");
         }
       }
     } else if (pigeonPurchases === 2) {
-      if (breadCount >= 2) {
+      if (breadCount >= 8) {
         if (pigeons.length > 0) {
           const lastPigeon = pigeons[pigeons.length - 1];
           const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
           pigeons.push(newPigeon);
           c6 = 2;
           pigeonPurchases++;
-          breadCount -= 2;
+          breadCount -= 8;
           console.log("Pigeon +1 purchased!");
         } else {
           console.log("Not enough bread$!");
         }
       }
     } else if (pigeonPurchases === 3) {
-      if (breadCount >= 2) {
+      if (breadCount >= 8) {
         if (pigeons.length > 0) {
           const lastPigeon = pigeons[pigeons.length - 1];
           const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
           pigeons.push(newPigeon);
           c7 = 2;
           pigeonPurchases++;
-          breadCount -= 2;
+          breadCount -= 8;
           console.log("Pigeon +1 purchased!");
         } else {
           console.log("Not enough bread$!");
         }
       }
     } else if (pigeonPurchases === 4) {
-      if (breadCount >= 2) {
+      if (breadCount >= 8) {
         if (pigeons.length > 0) {
           const lastPigeon = pigeons[pigeons.length - 1];
           const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
           pigeons.push(newPigeon);
           c8 = 2;
           pigeonPurchases++;
-          breadCount -= 2;
+          breadCount -= 8;
           console.log("Pigeon +1 purchased!");
         } else {
           console.log("Not enough bread$!");
@@ -570,9 +570,9 @@ function mousePressed() {
   if (mouseX > 475 && mouseX < 515 && mouseY > 515 && mouseY < 555) {
     console.log("Clicked");
     if (timePurchases === 0) {
-      if (breadCount >= 6) {
+      if (breadCount >= 20) {
         let addedSeconds = 0;
-        breadCount -= 6;
+        breadCount -= 20;
         timePurchases++;
         c9 = 2;
         if (seconds > 30) {
