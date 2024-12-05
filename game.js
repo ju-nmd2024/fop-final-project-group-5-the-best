@@ -28,6 +28,8 @@ let enemy3;
 // store
 let storePopup = false;
 let speedPurchases = 0;
+let pigeonPurchases = 0;
+let timePurchases = 0;
 let storeX = 700;
 let storeY = 70;
 let storeW = 50;
@@ -55,6 +57,17 @@ let seconds = 12;
 
 //pigeons
 let pigeons = [];
+
+//boost colors
+let c = 1;
+let c2 = 1;
+let c3 = 1;
+let c4 = 1;
+let c5 = 1;
+let c6 = 1;
+let c7 = 1;
+let c8 = 1;
+let c9 = 1;
 
 function setup() {
   createCanvas(800, 800);
@@ -239,7 +252,7 @@ function gameScreen() {
   if (colliding(pigeons[0], enemy1)) {
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy1);
-    if (breadCount >= 0) {
+    if (breadCount > 0) {
       breadCount -= 2;
     } else {
       breadCount = 0;
@@ -249,7 +262,7 @@ function gameScreen() {
   if (colliding(pigeons[0], enemy2)) {
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy2);
-    if (breadCount >= 0) {
+    if (breadCount > 0) {
       breadCount -= 2;
     } else {
       breadCount = 0;
@@ -259,7 +272,7 @@ function gameScreen() {
   if (colliding(pigeons[0], enemy3)) {
     console.log("Collision detected");
     stopPigeon(pigeons[0], enemy3);
-    if (breadCount >= 0) {
+    if (breadCount > 0) {
       breadCount -= 2;
     } else {
       breadCount = 0;
@@ -387,11 +400,32 @@ window.keyPressed = keyPressed;
 function mousePressed() {
   if (storePopup) {
     if (mouseX > 475 && mouseX < 515 && mouseY > 215 && mouseY < 255) {
-      if (speedPurchases < 3) {
+      if (speedPurchases === 0) {
         if (breadCount >= 5) {
           breadCount -= 5;
           pigeons[0].speed += 3;
           speedPurchases++;
+          c = 2;
+          console.log("Speed +3 purchased!" + (3 - speedPurchases));
+        } else {
+          console.log("Not enought Bread $!");
+        }
+      } else if (speedPurchases === 1) {
+        if (breadCount >= 5) {
+          breadCount -= 5;
+          pigeons[0].speed += 3;
+          speedPurchases++;
+          c2 = 2;
+          console.log("Speed +3 purchased!" + (3 - speedPurchases));
+        } else {
+          console.log("Not enought Bread $!");
+        }
+      } else if (speedPurchases === 2) {
+        if (breadCount >= 5) {
+          breadCount -= 5;
+          pigeons[0].speed += 3;
+          speedPurchases++;
+          c3 = 2;
           console.log("Speed +3 purchased!" + (3 - speedPurchases));
         } else {
           console.log("Not enought Bread $!");
@@ -404,33 +438,101 @@ function mousePressed() {
 
   if (mouseX > 475 && mouseX < 515 && mouseY > 365 && mouseY < 405) {
     console.log("Clicked");
-    if (breadCount >= 6) {
-      if (pigeons.length > 0) {
-        const lastPigeon = pigeons[pigeons.length - 1];
-        const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
-        pigeons.push(newPigeon);
-        breadCount -= 6;
-        console.log("Pigeon +1 purchased!");
-      } else {
-        console.log("Not enough bread$!");
+    if (pigeonPurchases === 0) {
+      if (breadCount >= 2) {
+        if (pigeons.length > 0) {
+          const lastPigeon = pigeons[pigeons.length - 1];
+          const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
+          pigeons.push(newPigeon);
+          c4 = 2;
+          pigeonPurchases++;
+          breadCount -= 2;
+          console.log("Pigeon +1 purchased!");
+        } else {
+          console.log("Not enough bread$!");
+        }
       }
+    } else if (pigeonPurchases === 1) {
+      if (breadCount >= 2) {
+        if (pigeons.length > 0) {
+          const lastPigeon = pigeons[pigeons.length - 1];
+          const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
+          pigeons.push(newPigeon);
+          c5 = 2;
+          pigeonPurchases++;
+          breadCount -= 2;
+          console.log("Pigeon +1 purchased!");
+        } else {
+          console.log("Not enough bread$!");
+        }
+      }
+    } else if (pigeonPurchases === 2) {
+      if (breadCount >= 2) {
+        if (pigeons.length > 0) {
+          const lastPigeon = pigeons[pigeons.length - 1];
+          const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
+          pigeons.push(newPigeon);
+          c6 = 2;
+          pigeonPurchases++;
+          breadCount -= 2;
+          console.log("Pigeon +1 purchased!");
+        } else {
+          console.log("Not enough bread$!");
+        }
+      }
+    } else if (pigeonPurchases === 3) {
+      if (breadCount >= 2) {
+        if (pigeons.length > 0) {
+          const lastPigeon = pigeons[pigeons.length - 1];
+          const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
+          pigeons.push(newPigeon);
+          c7 = 2;
+          pigeonPurchases++;
+          breadCount -= 2;
+          console.log("Pigeon +1 purchased!");
+        } else {
+          console.log("Not enough bread$!");
+        }
+      }
+    } else if (pigeonPurchases === 4) {
+      if (breadCount >= 2) {
+        if (pigeons.length > 0) {
+          const lastPigeon = pigeons[pigeons.length - 1];
+          const newPigeon = new PixelPigeon(lastPigeon.x + 40, lastPigeon.y, 2);
+          pigeons.push(newPigeon);
+          c8 = 2;
+          pigeonPurchases++;
+          breadCount -= 2;
+          console.log("Pigeon +1 purchased!");
+        } else {
+          console.log("Not enough bread$!");
+        }
+      }
+    } else {
+      console.log("Limit Reached!");
     }
   }
   if (mouseX > 475 && mouseX < 515 && mouseY > 515 && mouseY < 555) {
     console.log("Clicked");
-    if (breadCount >= 10) {
-      let addedSeconds = 0;
-      breadCount -= 10;
-      if (seconds > 30) {
-        addedSeconds = 60 - seconds;
-        seconds = -addedSeconds + 30;
-        minutes++;
+    if (timePurchases === 0) {
+      if (breadCount >= 6) {
+        let addedSeconds = 0;
+        breadCount -= 6;
+        timePurchases++;
+        c9 = 2;
+        if (seconds > 30) {
+          addedSeconds = 60 - seconds;
+          seconds = -addedSeconds + 30;
+          minutes++;
+        } else {
+          seconds += 30;
+        }
+        console.log("Time +30 purchased!" + minutes + "m" + seconds + "s");
       } else {
-        seconds += 30;
+        console.log("Not enough Bread $!");
       }
-      console.log("Time +30 purchased!" + minutes + "m" + seconds + "s");
     } else {
-      console.log("Not enough Bread $!");
+      console.log("Limit Reached!");
     }
   }
 }
@@ -477,19 +579,65 @@ function showPopup() {
   push();
   stroke("#710000");
   //boost main rectangles
-  rect(275, 200, 180, 70);
-  rect(275, 350, 180, 70);
+  push();
+  //speed boost rectangles
+  if (c === 1) fill("#fcefb4");
+  if (c === 2) fill("#710000");
+  rect(275, 200, 60, 70);
+  pop();
+
+  push();
+  if (c2 === 1) fill("#fcefb4");
+  if (c2 === 2) fill("#710000");
+  rect(335, 200, 60, 70);
+  pop();
+
+  push();
+  if (c3 === 1) fill("#fcefb4");
+  if (c3 === 2) fill("#710000");
+  rect(395, 200, 60, 70);
+  pop();
+
+  push();
+  //pigeon boost rectangles
+  if (c4 === 1) fill("#fcefb4");
+  if (c4 === 2) fill("#710000");
+  rect(275, 350, 36, 70);
+  pop();
+
+  push();
+  if (c5 === 1) fill("#fcefb4");
+  if (c5 === 2) fill("#710000");
+  rect(311, 350, 36, 70);
+  pop();
+
+  push();
+  if (c6 === 1) fill("#fcefb4");
+  if (c6 === 2) fill("#710000");
+  rect(347, 350, 36, 70);
+  pop();
+
+  push();
+  if (c7 === 1) fill("#fcefb4");
+  if (c7 === 2) fill("#710000");
+  rect(383, 350, 36, 70);
+  pop();
+
+  push();
+  if (c8 === 1) fill("#fcefb4");
+  if (c8 === 2) fill("#710000");
+  rect(419, 350, 36, 70);
+  pop();
+
+  push();
+  if (c9 === 1) fill("#fcefb4");
+  if (c9 === 2) fill("#710000");
   rect(275, 500, 180, 70);
+  pop();
 
   rect(475, 215, 40, 40);
   rect(475, 365, 40, 40);
   rect(475, 515, 40, 40);
-
-  line(335, 200, 335, 270);
-  line(395, 200, 395, 270);
-
-  line(335, 350, 335, 420);
-  line(395, 350, 395, 420);
   pop();
 
   push();
