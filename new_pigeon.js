@@ -187,16 +187,6 @@ export default class PixelPigeon {
       }
     }
     pop();
-
-    if (this.walkShop()) {
-      showPopup();
-      storePopup = true;
-      fountain.x = -600;
-      fountain.y = -600;
-    } else {
-      fountain.x = 300;
-      fountain.y = 240;
-    }
   }
 
   move() {

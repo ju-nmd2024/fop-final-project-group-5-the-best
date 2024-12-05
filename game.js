@@ -254,6 +254,15 @@ function gameScreen() {
 
   pigeons[0].draw();
   pigeons[0].move();
+  if (pigeons[0].walkShop()) {
+    showPopup();
+    storePopup = true;
+    fountain.x = -600;
+    fountain.y = -600;
+  } else {
+    fountain.x = 300;
+    fountain.y = 240;
+  }
 
   fountain.draw();
 
@@ -264,21 +273,11 @@ function gameScreen() {
 
     if (i > 0) {
       const followingPigeon = pigeons[i - 1];
-
-      // const leader = pigeons[i ];
-      // const follower = pigeons[i - 1];
-
       const offsetX = 40;
       const offsetY = 0;
       pigeon.x = lerp(pigeon.x, followingPigeon.x + offsetX, 0.1);
       pigeon.y = lerp(pigeon.y, followingPigeon.y + offsetY, 0.1);
     }
-
-    // leader.x = follower.x - 100;
-    // leader.y = follower.y;
-
-    // Draw the follower
-    // follower.draw();
   }
 
   if (colliding(pigeons[0], enemy1)) {
